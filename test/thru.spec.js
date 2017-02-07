@@ -6,7 +6,8 @@ import fetch from 'isomorphic-fetch';
 
 import thru from '../src';
 
-import { constant, defer, isThennable, partial, thenify } from '../src/lib';
+import { constant, defer, identity, isThennable, partial, thenify} from '../src/lib';
+
 import AsyncResult from '../src/async-result';
 
 const settings = Object.freeze({
@@ -40,16 +41,17 @@ test("Thru calls .then() resolvers", expect => {
          fetchOutput = null,
          jQueryOutput = null;
 
-    thru(x => x.id, $.get, settings.API)
+    thru(identity, $.get, settings.API)
+        .then(x => x.id)
         .then(id => { jQueryOutput = id; })
         .then(() => { expect.equals(typeof jQueryOutput , 'number', '| thru is jQuery compatible.') });
 
-    thru(x => x.json(), fetch, settings.API)
+    thru(identity, fetch, settings.API)
         .then(x => x.id)
         .then(id => { fetchOutput = id; })
         .then(() => { expect.equals(typeof fetchOutput , 'number', '| thru is fetch compatible.') });
 
-    thru(x => x.data, axios.get, settings.API)
+    thru(identity, axios.get, settings.API)
         .then(x => x.id)
         .then(id => { axiosOutput = id; })
         .then(() => { expect.equals(typeof axiosOutput , 'number', '| thru is axios compatible.') });
