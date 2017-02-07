@@ -17,24 +17,30 @@ const settings = Object.freeze({
 test("Thru import exists", expect => {
     expect.plan(1);
 
-    expect.ok(thru);
+    expect.ok(thru,
+        '| Module import test.');
 });
 
 test("Thru is partially applied and returns then for immediate values", expect => {
-    expect.plan(3);
+    expect.plan(2);
 
-    expect.equals(typeof thru(x => x), 'function');
-    expect.equals(typeof thru(x => x, () => "result!"), 'object');
-    expect.equals(typeof thru(x => x, () => "result!").then, 'function');
+    expect.equals(typeof thru(x => x), 'function',
+        '| Partial application step 1.');
+    expect.equals(typeof thru(x => x, () => "result!"), 'object',
+        '| Partial application step 2.');
+
 });
 
 test("Thru returns .then()", expect => {
-    expect.plan(1);
+    expect.plan(2);
 
-    expect.equals(typeof thru(x => x.id, $.get, settings.API).then, 'function');
+    expect.equals(typeof thru(x => x, () => "result!").then, 'function',
+        '| Basic .then() retrieval.');
+    expect.equals(typeof thru(x => x.id, $.get, settings.API).then, 'function',
+        '| Ajax/HTTP .then() retrieval.');
 });
 
-test("Thru calls .then() resolvers", expect => {
+test("Library compatibility for unwrapping GET requests", expect => {
     expect.plan(3);
 
     let  axiosOutput = null,
@@ -44,40 +50,54 @@ test("Thru calls .then() resolvers", expect => {
     thru(identity, $.get, settings.API)
         .then(x => x.id)
         .then(id => { jQueryOutput = id; })
-        .then(() => { expect.equals(typeof jQueryOutput , 'number', '| thru is jQuery compatible.') });
+        .then(() => { expect.equals(typeof jQueryOutput , 'number',
+            '| thru is jQuery compatible.') });
 
     thru(identity, fetch, settings.API)
         .then(x => x.id)
         .then(id => { fetchOutput = id; })
-        .then(() => { expect.equals(typeof fetchOutput , 'number', '| thru is fetch compatible.') });
+        .then(() => { expect.equals(typeof fetchOutput , 'number',
+            '| thru is fetch compatible.') });
 
     thru(identity, axios.get, settings.API)
         .then(x => x.id)
         .then(id => { axiosOutput = id; })
-        .then(() => { expect.equals(typeof axiosOutput , 'number', '| thru is axios compatible.') });
+        .then(() => { expect.equals(typeof axiosOutput , 'number',
+            '| thru is axios compatible.') });
 
 });
 
-test("Thru library tests", expect => {
+test("Thru core library tests", expect => {
     expect.plan(12);
 
     const addTwo = (a, b) => a + b;
 
-    expect.equal(typeof constant(() => 10), 'function');
-    expect.equal(typeof constant(() => 10)(), 'number');
+    expect.equal(typeof constant(() => 10), 'function',
+        '| Constant returns a function type.');
+    expect.equal(typeof constant(() => 10)(), 'number',
+        '| Constant returns a number result.');
 
-    expect.equal(isThennable(123), AsyncResult.NOT_THENNABLE);
-    expect.equal(isThennable($.get(settings.API)), AsyncResult.THENNABLE);
+    expect.equal(isThennable(123), AsyncResult.NOT_THENNABLE,
+        '| isThennable returns a NOT_THENNABLE enum.');
+    expect.equal(isThennable($.get(settings.API)), AsyncResult.THENNABLE,
+        '| isThennable returns a THENNABLE enum.');
 
-    expect.equal(typeof partial(addTwo), 'function');
-    expect.equal(typeof partial(addTwo)(1), 'function');
-    expect.equal(typeof partial(addTwo)(1, 2), 'number');
-    expect.equal(typeof partial(addTwo)(1)(2), 'number');
+    expect.equal(typeof partial(addTwo), 'function',
+        '| Partially applies addTwo.');
+    expect.equal(typeof partial(addTwo)(1), 'function',
+        '| Partially applies addTwo with step 1.');
+    expect.equal(typeof partial(addTwo)(1, 2), 'number',
+        '| Partially applies addTwo with step 2 and returns.');
+    expect.equal(typeof partial(addTwo)(1)(2), 'number',
+        '| Partially applies addTwo with two separate steps and returns.');
 
-    expect.equal(thenify(123).unwrap(), 123);
-    expect.equal(thenify(123).then(x => x * 2).unwrap(), 123 * 2);
+    expect.equal(thenify(123).unwrap(), 123,
+        '| Thenify unwraps a correct stored value.');
+    expect.equal(thenify(123).then(x => x * 2).unwrap(), 123 * 2,
+        '| Thenify unwraps a correct stored value after .then().');
 
-    expect.equal(defer(() => 10, x => x * x).unwrap(), 100);
+    expect.equal(defer(() => 10, x => x * x).unwrap(), 100,
+        '| Defer defers an immediate value return.');
 
     let mutable = null;
     const captureReference = () => mutable;
@@ -85,7 +105,8 @@ test("Thru library tests", expect => {
     setTimeout(() => mutable = 100);
 
     defer(captureReference, x => {
-        expect.equal(x, 100);
+        expect.equal(x, 100,
+            '| Defer defers a deferred value return.');
         return x;
     });
 });
