@@ -1,15 +1,19 @@
-import { isThennable } from './lib';
-import Promise from 'es6-promise';
+import {
+    isThennable,
+    defer,
+    partial,
+    constant
+} from './lib';
 
 import AsyncResult from './async-result';
 
-export default function thru(middleware, ajax, ...args) {
-    const asyncResult = ajax.apply(null,args);
+export default partial(function thru(middleware, ajax, ...args) {
+    const asyncResult = ajax(...args);
 
     switch(isThennable(asyncResult)) {
         case AsyncResult.NOT_THENNABLE:
-            return new Promise(asyncResult).then(middleware);
+            return defer(constant(asyncResult), middleware);
         case AsyncResult.THENNABLE:
             return asyncResult.then(middleware);
     }
-};
+});
