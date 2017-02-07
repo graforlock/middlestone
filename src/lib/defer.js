@@ -5,6 +5,7 @@ const delayed = typeof process !== 'undefined'
             :  setTimeout;
 
 export default function defer(lambda, middleware) {
+
     if (lambda()) {
         return thenify(middleware(lambda()));
     }

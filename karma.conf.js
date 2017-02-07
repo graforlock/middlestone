@@ -9,10 +9,8 @@ module.exports = function (config) {
             }
         ],
 
-        exclude: [],
-
         preprocessors: {
-            'test-context.js': ['webpack']
+            'test-context.js': ['webpack', 'coverage']
         },
 
         webpack: {
@@ -34,7 +32,18 @@ module.exports = function (config) {
 
         },
 
-        reporters: ['progress'],
+        webpackMiddleware: {
+            // webpack-dev-middleware configuration
+            // i.e.
+            noInfo: true,
+            // and use stats to turn off verbose output
+            stats: {
+                // options i.e.
+                chunks: false
+            }
+        },
+
+        reporters: ['tape', 'coverage'],
 
         coverageReporter: {
             type: 'text'
@@ -52,11 +61,13 @@ module.exports = function (config) {
         captureConsole: true,
         port: 9876,
         colors: true,
-        singleRun: true,
+        singleRun: false,
 
         plugins: [
             require('karma-webpack'),
             require('karma-tap'),
+            require('karma-coverage'),
+            require('karma-tape-reporter'),
             require('karma-chrome-launcher'),
             require('karma-phantomjs-launcher')
         ]

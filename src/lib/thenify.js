@@ -7,6 +7,13 @@ export default function thenify(x) {
     }
 }
 
-thenify.prototype.then = function(fn) {
-    return new thenify(fn(this.x));
+thenify.prototype.unwrap = function() { return this.x; };
+
+thenify.prototype.then = function(resolve, reject) {
+    try {
+        return new thenify(resolve(this.x));
+    }
+    catch(err) {
+        reject(err);
+    }
 };
