@@ -1,14 +1,20 @@
-import thenify from './thenify';
+import identity from './identity';
+
+import * as Result from '../result';
 
 const delayed = typeof process !== 'undefined'
             ?  process.nextTick
             :  setTimeout;
 
-export default function defer(lambda, middleware) {
+export default function defer(lambda, middleware = identity, tick = 0) {
 
     if (lambda()) {
-        return thenify(middleware(lambda()));
+        return Result.Ok(middleware(lambda()));
     }
 
-    delayed(defer.bind(null, lambda, middleware));
+    if(tick >= 1000) {
+        return new Result.Err('Error: Async handler has timed out.');
+    }
+
+    delayed(defer.bind(null, lambda, middleware, tick + 1));
 }
