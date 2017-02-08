@@ -6,13 +6,15 @@ const delayed = typeof process !== 'undefined'
             ?  process.nextTick
             :  setTimeout;
 
+const TIMEOUT_LIMIT = 1000;
+
 export default function defer(lambda, middleware = identity, tick = 0) {
 
     if (lambda()) {
         return Result.Ok(middleware(lambda()));
     }
 
-    if(tick >= 1000) {
+    if(tick >= TIMEOUT_LIMIT) {
         return new Result.Err('Error: Async handler has timed out.');
     }
 
