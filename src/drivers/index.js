@@ -1,6 +1,3 @@
-import axios from './axios';
-import fetch from './fetch';
-import jquery from './jquery';
+import fetchWrapper from './fetch';
 
-
-export { axios, fetch, jquery };
+export { fetchWrapper };

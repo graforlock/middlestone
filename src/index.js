@@ -6,7 +6,9 @@ import {
     compose
 } from './lib';
 
+import fetch from 'isomorphic-fetch';
 import AsyncResult from './async-result';
+import { fetchWrapper } from './drivers';
 
 const request =  partial(function request(middleware, asyncRequest, ...args) {
     const asyncResult = asyncRequest(...args);
@@ -21,7 +23,8 @@ const request =  partial(function request(middleware, asyncRequest, ...args) {
 
 const middlewareClient = (...middleware) => {
     return {
-        request: request(compose(...middleware))
+        request: request(compose(...middleware)),
+        fetch: request.bind(null, fetchWrapper(compose(...middleware)), fetch)
     }
 };
 

@@ -13,7 +13,8 @@ import { compose, constant, defer, identity, isThennable, partial, thenify} from
 import AsyncResult from '../src/async-result';
 
 const settings = Object.freeze({
-    API: 'https://jsonplaceholder.typicode.com/posts/1'
+    API_GET: 'https://jsonplaceholder.typicode.com/posts/1',
+    API_POST: 'https://jsonplaceholder.typicode.com/posts'
 });
 
 test("Thru import exists", expect => {
@@ -38,33 +39,52 @@ test("Thru returns .then()", expect => {
 
     expect.equals(typeof request(x => x, () => "result!").then, 'function',
         '| Basic .then() retrieval.');
-    expect.equals(typeof request(x => x.id, $.get, settings.API).then, 'function',
+    expect.equals(typeof request(x => x.id, $.get, settings.API_GET).then, 'function',
         '| Ajax/HTTP .then() retrieval.');
 });
 
-test("Library compatibility for unwrapping GET requests", expect => {
+test("Library compatibility for unwrapping GET/POST requests", expect => {
     expect.plan(3);
 
     let  axiosOutput = null,
          fetchOutput = null,
          jQueryOutput = null;
 
-    request(drivers.jquery, $.get, settings.API)
+    request(identity, $.get, settings.API_GET)
         .then(x => x.id)
         .then(id => { jQueryOutput = id; })
         .then(() => { expect.equals(typeof jQueryOutput , 'number',
-            '| Request is jQuery compatible.') });
+            '| Request is jQuery GET ompatible.') });
 
-    request(drivers.fetch(x => x.id), fetch, settings.API)
+    request(drivers.fetchWrapper(x => x.id), fetch, settings.API_GET)
         .then(id => { fetchOutput = id; })
         .then(() => { expect.equals(typeof fetchOutput , 'number',
             '| Request is fetch compatible.') });
 
-    request(drivers.axios, axios.get, settings.API)
+    request(x => x.data, axios.get, settings.API_GET)
         .then(x => x.id)
         .then(id => { axiosOutput = id; })
         .then(() => { expect.equals(typeof axiosOutput , 'number',
             '| Request is axios compatible.') });
+
+});
+
+test("middlewareClient functionality for GET/POST requests", expect => {
+    expect.plan(2);
+    let client = middlewareClient(x => x);
+
+    client.fetch(settings.API_GET)
+        .then(x => x.id)
+        .then(id => {  expect.equals(typeof id , 'number',
+            '| middlewareClient fetches the fetch request with simple middleware.') });
+
+    client.fetch(settings.API_POST, {
+            method: 'POST',
+            body: { title: "Mayo", body: "naise" }
+        })
+        .then(x => x.id)
+        .then(id => {  expect.equals(typeof id , 'number',
+            '| middlewareClient posts the fetch request with simple middleware.') });
 
 });
 
@@ -80,7 +100,7 @@ test("Thru core library tests", expect => {
 
     expect.equal(isThennable(123), AsyncResult.NOT_THENNABLE,
         '| isThennable returns a NOT_THENNABLE enum.');
-    expect.equal(isThennable($.get(settings.API)), AsyncResult.THENNABLE,
+    expect.equal(isThennable($.get(settings.API_GET)), AsyncResult.THENNABLE,
         '| isThennable returns a THENNABLE enum.');
 
     expect.equal(typeof partial(addTwo), 'function',
