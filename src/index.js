@@ -20,8 +20,8 @@ const request =  partial(function request(middleware, asyncRequest, ...args) {
 });
 
 const middlewareClient = (...middleware) => {
-    return (asyncRequest, ...args) => {
-        return request(compose(...middleware), asyncRequest, ...args);
+    return {
+        request: request(compose(...middleware))
     }
 };
 
