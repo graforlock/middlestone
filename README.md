@@ -6,7 +6,6 @@ Example use:
 
 ### `fetch`
 ```javascript
-import axios from 'axios';
 import { middlewareClient } from 'thru';
 
 const client = middlewareClient( 
@@ -20,7 +19,20 @@ client.fetchJSON('https://jsonplaceholder.typicode.com/posts/1')
 client.fetch('https://jsonplaceholder.typicode.com/posts/1')
  .then(result => result);
  
-client.request(axios.get, 'https://jsonplaceholder.typicode.com/posts/1')
- .then(result => result)
+
  
  ```
+ 
+ ### `other`
+```javascript
+import axios from 'axios';
+import { middlewareClient } from 'thru';
+
+const client = middlewareClient( 
+  doSomething, 
+  setCookies 
+);
+
+client.request(axios.get, 'https://jsonplaceholder.typicode.com/posts/1')
+ .then(result => result)
+```
