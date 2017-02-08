@@ -73,12 +73,12 @@ test("middlewareClient functionality for GET/POST requests", expect => {
     expect.plan(2);
     let client = middlewareClient(x => x);
 
-    client.fetch(settings.API_GET)
+    client.fetchJSON(settings.API_GET)
         .then(x => x.id)
         .then(id => {  expect.equals(typeof id , 'number',
             '| middlewareClient fetches the fetch request with simple middleware.') });
 
-    client.fetch(settings.API_POST, {
+    client.fetchJSON(settings.API_POST, {
             method: 'POST',
             body: { title: "Mayo", body: "naise" }
         })

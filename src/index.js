@@ -8,6 +8,8 @@ import {
 
 import fetch from 'isomorphic-fetch';
 import AsyncResult from './async-result';
+import * as Result from './result';
+
 import { fetchWrapper } from './drivers';
 
 const request =  partial(function request(middleware, asyncRequest, ...args) {
@@ -23,9 +25,10 @@ const request =  partial(function request(middleware, asyncRequest, ...args) {
 
 const middlewareClient = (...middleware) => {
     return {
-        request: request(compose(...middleware)),
-        fetch: request.bind(null, fetchWrapper(compose(...middleware)), fetch)
+        request:   request(compose(...middleware)),
+        fetch:     request((compose(...middleware)), fetch),
+        fetchJSON: request.bind(null, fetchWrapper(compose(...middleware)), fetch)
     }
 };
 
-export { request, middlewareClient };
+export { request, middlewareClient, Result };
