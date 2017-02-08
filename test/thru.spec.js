@@ -55,7 +55,7 @@ test("Library compatibility for unwrapping GET requests", expect => {
         .then(() => { expect.equals(typeof jQueryOutput , 'number',
             '| Request is jQuery compatible.') });
 
-    request(drivers.fetch(compose(x => x.id)), fetch, settings.API)
+    request(drivers.fetch(x => x.id), fetch, settings.API)
         .then(id => { fetchOutput = id; })
         .then(() => { expect.equals(typeof fetchOutput , 'number',
             '| Request is fetch compatible.') });
