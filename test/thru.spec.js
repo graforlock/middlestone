@@ -1,10 +1,12 @@
 import test from 'tape';
 
+import * as drivers from '../src/drivers';
+
 import $ from 'jquery';
 import axios from 'axios';
 import fetch from 'isomorphic-fetch';
 
-import thru from '../src';
+import { request, middlewareClient } from '../src';
 
 import { constant, defer, identity, isThennable, partial, thenify} from '../src/lib';
 
@@ -17,16 +19,16 @@ const settings = Object.freeze({
 test("Thru import exists", expect => {
     expect.plan(1);
 
-    expect.ok(thru,
+    expect.ok(request,
         '| Module import test.');
 });
 
 test("Thru is partially applied and returns then for immediate values", expect => {
     expect.plan(2);
 
-    expect.equals(typeof thru(x => x), 'function',
+    expect.equals(typeof request(x => x), 'function',
         '| Partial application step 1.');
-    expect.equals(typeof thru(x => x, () => "result!"), 'object',
+    expect.equals(typeof request(x => x, () => "result!"), 'object',
         '| Partial application step 2.');
 
 });
@@ -34,9 +36,9 @@ test("Thru is partially applied and returns then for immediate values", expect =
 test("Thru returns .then()", expect => {
     expect.plan(2);
 
-    expect.equals(typeof thru(x => x, () => "result!").then, 'function',
+    expect.equals(typeof request(x => x, () => "result!").then, 'function',
         '| Basic .then() retrieval.');
-    expect.equals(typeof thru(x => x.id, $.get, settings.API).then, 'function',
+    expect.equals(typeof request(x => x.id, $.get, settings.API).then, 'function',
         '| Ajax/HTTP .then() retrieval.');
 });
 
@@ -47,23 +49,23 @@ test("Library compatibility for unwrapping GET requests", expect => {
          fetchOutput = null,
          jQueryOutput = null;
 
-    thru(identity, $.get, settings.API)
+    request(drivers.jquery, $.get, settings.API)
         .then(x => x.id)
         .then(id => { jQueryOutput = id; })
         .then(() => { expect.equals(typeof jQueryOutput , 'number',
-            '| thru is jQuery compatible.') });
+            '| Request is jQuery compatible.') });
 
-    thru(identity, fetch, settings.API)
+    request(drivers.fetch, fetch, settings.API)
         .then(x => x.id)
         .then(id => { fetchOutput = id; })
         .then(() => { expect.equals(typeof fetchOutput , 'number',
-            '| thru is fetch compatible.') });
+            '| Request is fetch compatible.') });
 
-    thru(identity, axios.get, settings.API)
+    request(drivers.axios, axios.get, settings.API)
         .then(x => x.id)
         .then(id => { axiosOutput = id; })
         .then(() => { expect.equals(typeof axiosOutput , 'number',
-            '| thru is axios compatible.') });
+            '| Request is axios compatible.') });
 
 });
 

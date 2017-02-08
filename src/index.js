@@ -2,21 +2,27 @@ import {
     isThennable,
     defer,
     partial,
-    compose,
-    constant
+    constant,
+    compose
 } from './lib';
 
 import AsyncResult from './async-result';
-import assert from './drivers/assert'
 
-export default partial(function thru(middleware, ajax, ...args) {
-    const asyncResult = ajax(...args);
+const request =  partial(function request(middleware, asyncRequest, ...args) {
+    const asyncResult = asyncRequest(...args);
 
     switch(isThennable(asyncResult)) {
         case AsyncResult.NOT_THENNABLE:
             return defer(constant(asyncResult), middleware);
         case AsyncResult.THENNABLE:
-            const driver = assert(asyncResult);
-            return asyncResult.then(compose(middleware, driver));
+            return asyncResult.then(middleware);
     }
 });
+
+const middlewareClient = (...middleware) => {
+    return (asyncRequest, ...args) => {
+        return thru(compose(...middleware), asyncRequest, args);
+    }
+};
+
+export { request, middlewareClient };
