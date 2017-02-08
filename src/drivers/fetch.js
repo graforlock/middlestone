@@ -1,3 +1,3 @@
-export default function fetch(response) {
-    return response.json();
+export default function fetchWrapper(composed) {
+    return res => res.json().then(composed);
 }

@@ -8,7 +8,7 @@ import fetch from 'isomorphic-fetch';
 
 import { request, middlewareClient } from '../src';
 
-import { constant, defer, identity, isThennable, partial, thenify} from '../src/lib';
+import { compose, constant, defer, identity, isThennable, partial, thenify} from '../src/lib';
 
 import AsyncResult from '../src/async-result';
 
@@ -55,8 +55,7 @@ test("Library compatibility for unwrapping GET requests", expect => {
         .then(() => { expect.equals(typeof jQueryOutput , 'number',
             '| Request is jQuery compatible.') });
 
-    request(drivers.fetch, fetch, settings.API)
-        .then(x => x.id)
+    request(drivers.fetch(compose(x => x.id)), fetch, settings.API)
         .then(id => { fetchOutput = id; })
         .then(() => { expect.equals(typeof fetchOutput , 'number',
             '| Request is fetch compatible.') });
