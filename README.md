@@ -23,7 +23,7 @@ client.fetch('https://jsonplaceholder.typicode.com/posts/1')
  
  ```
  
- ### `other`
+###`other`
 ```javascript
 import axios from 'axios';
 import { middlewareClient } from 'thru';
