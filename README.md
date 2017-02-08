@@ -37,6 +37,6 @@ const client = middlewareClient(
   setCookies 
 );
 
-client.request(axios.get, 'constants.API')
+client.request(axios.get, constants.API)
  .then(result => result)
 ```
