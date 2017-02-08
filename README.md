@@ -8,15 +8,17 @@ Example use:
 ```javascript
 import { middlewareClient } from 'thru';
 
+import * as constants from './constants';
+
 const client = middlewareClient( 
   doSomething, 
   setCookies 
 );
 
-client.fetchJSON('https://jsonplaceholder.typicode.com/posts/1')
+client.fetchJSON(constants.API)
  .then(json => json);
  
-client.fetch('https://jsonplaceholder.typicode.com/posts/1')
+client.fetch(constants.API)
  .then(result => result);
  
 
@@ -28,11 +30,13 @@ client.fetch('https://jsonplaceholder.typicode.com/posts/1')
 import axios from 'axios';
 import { middlewareClient } from 'thru';
 
+import * as constants from './constants';
+
 const client = middlewareClient( 
   doSomething, 
   setCookies 
 );
 
-client.request(axios.get, 'https://jsonplaceholder.typicode.com/posts/1')
+client.request(axios.get, 'constants.API')
  .then(result => result)
 ```
