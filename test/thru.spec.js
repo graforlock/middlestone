@@ -8,7 +8,7 @@ import fetch from 'isomorphic-fetch';
 
 import { request, middlewareClient } from '../src';
 
-import { compose, constant, defer, identity, isThennable, partial, thenify} from '../src/lib';
+import { constant, defer, identity, isThennable, partial, thenify} from '../src/lib';
 
 import AsyncResult from '../src/async-result';
 
