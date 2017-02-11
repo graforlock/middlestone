@@ -8,9 +8,10 @@ import fetch from 'isomorphic-fetch';
 
 import { request, middlewareClient } from '../src';
 
-import { constant, defer, identity, isThennable, partial, thenify} from '../src/lib';
+import { compose, constant, immediate, identity, isThennable, partial } from '../src/lib';
 
 import AsyncResult from '../src/async-result';
+import httpHandler from '../src/lib/http-handler';
 
 const settings = Object.freeze({
     API_GET: 'https://jsonplaceholder.typicode.com/posts/1',
@@ -34,17 +35,8 @@ test("Thru is partially applied and returns then for immediate values", expect =
 
 });
 
-test("Thru returns .then()", expect => {
-    expect.plan(2);
-
-    expect.equals(typeof request(x => x, () => "result!").then, 'function',
-        '| Basic .then() retrieval.');
-    expect.equals(typeof request(x => x.id, $.get, settings.API_GET).then, 'function',
-        '| Ajax/HTTP .then() retrieval.');
-});
-
 test("Library compatibility for unwrapping GET/POST requests", expect => {
-    expect.plan(3);
+    expect.plan(2);
 
     let  axiosOutput = null,
          fetchOutput = null,
@@ -56,7 +48,8 @@ test("Library compatibility for unwrapping GET/POST requests", expect => {
         .then(() => { expect.equals(typeof jQueryOutput , 'number',
             '| Request is jQuery GET ompatible.') });
 
-    request(drivers.fetchWrapper(x => x.id), fetch, settings.API_GET)
+    request(drivers.fetchWrapper(compose(x => x.id, httpHandler)), fetch, settings.API_GET)
+        .then(result => result.unwrap())
         .then(id => { fetchOutput = id; })
         .then(() => { expect.equals(typeof fetchOutput , 'number',
             '| Request is fetch compatible.') });
@@ -74,20 +67,22 @@ test("middlewareClient functionality for GET/POST requests", expect => {
     let client = middlewareClient(x => x.id);
 
     client.fetchJSON(settings.API_GET)
-        .then(id => {  expect.equals(typeof id , 'number',
+        .then(result => result.unwrap())
+        .then(id => { expect.equals(typeof id , 'number',
             '| middlewareClient fetches the fetch request with simple middleware.') });
 
     client.fetchJSON(settings.API_POST, {
             method: 'POST',
-            body: { title: "Mayo", body: "naise" }
+            body: "title=Mayo&body=naise"
         })
-        .then(id => {  expect.equals(typeof id , 'number',
+        .then(result => result.unwrap())
+        .then(id => { expect.equals(typeof id , 'number',
             '| middlewareClient posts the fetch request with simple middleware.') });
 
 });
 
 test("Thru core library tests", expect => {
-    expect.plan(12);
+    expect.plan(9);
 
     const addTwo = (a, b) => a + b;
 
@@ -110,24 +105,8 @@ test("Thru core library tests", expect => {
     expect.equal(typeof partial(addTwo)(1)(2), 'number',
         '| Partially applies addTwo with two separate steps and returns.');
 
-    expect.equal(thenify(123).unwrap(), 123,
-        '| Thenify unwraps a correct stored value.');
-    expect.equal(thenify(123).then(x => x * 2).unwrap(), 123 * 2,
-        '| Thenify unwraps a correct stored value after .then().');
-
-    expect.equal(defer(() => 10, x => x * x).unwrap(), 100,
-        '| Defer defers an immediate value return.');
-
-    let mutable = null;
-    const captureReference = () => mutable;
-
-    setTimeout(() => mutable = 100);
-
-    defer(captureReference, x => {
-        expect.equal(x, 100,
-            '| Defer defers a deferred value return.');
-        return x;
-    });
+    expect.equal(immediate(() => 10, x => x * x).unwrap(), 100,
+        '| An immediate value return.');
 });
 
 

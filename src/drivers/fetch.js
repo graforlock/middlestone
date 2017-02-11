@@ -1,15 +1,3 @@
 export default function fetchWrapper(composed) {
-    return res => {
-        return res.map(r => {
-            return r.json().then(composed).then(x => x);
-        });
-    }
+    return res => res.map(r => r.json().then(composed));
 }
-
-/*
- var client = thru.middlewareClient(x => x.id);
-
- client.fetchJSON('https://jsonplaceholder.typicode.com/posts/1')
- .then(id => id.unwrap().then(x => console.log(x)));
-
- */

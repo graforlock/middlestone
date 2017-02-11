@@ -1,6 +1,6 @@
 import {
     isThennable,
-    defer,
+    immediate,
     partial,
     constant,
     compose
@@ -18,7 +18,7 @@ const request =  partial((middleware, asyncRequest, ...args) => {
 
     switch(isThennable(asyncResult)) {
         case AsyncResult.NOT_THENNABLE:
-            return defer(constant(asyncResult), middleware);
+            return immediate(constant(asyncResult), middleware);
         case AsyncResult.THENNABLE:
             return asyncResult.then(middleware);
     }
@@ -26,7 +26,7 @@ const request =  partial((middleware, asyncRequest, ...args) => {
 
 const middlewareClient = (...middleware) => {
     return {
-        request:   request(compose(...middleware)),
+        request:   (...args) => request(compose(...middleware, httpHandler), ...args),
         fetch:     (...args) => request(compose(...middleware, httpHandler), fetch, ...args),
         fetchJSON: (...args) => request(compose(fetchWrapper(compose(...middleware)), httpHandler), fetch, ...args)
     }
