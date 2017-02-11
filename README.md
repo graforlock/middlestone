@@ -4,7 +4,7 @@ A simple middleware wrapper for `fetch` and other promise-based, HTTP libraries.
  
 Example usage:
 
-### with `fetch` :
+### 1) With `fetch` :
 ```javascript
 import { middlewareClient } from 'thru';
 
@@ -28,7 +28,7 @@ client.fetch(API)
  
  ```
  
-### all `other Promise` use cases :
+### 2) All `other Promise` use cases :
 ```javascript
 import { middlewareClient } from 'thru';
 
