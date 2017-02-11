@@ -14,4 +14,9 @@ export default class Result {
     isErr() {
         return this.constructor.name === 'Err';
     }
+
+    inspect() {
+        return `${this.constructor.name}(${this.x})`;
+    }
+
 }

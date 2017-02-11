@@ -9,6 +9,8 @@ import {
 import fetch from 'isomorphic-fetch';
 import AsyncResult from './async-result';
 
+import * as Result from './result';
+
 import { toJson } from './core';
 
 import httpHandler from './lib/http-handler';
@@ -32,4 +34,4 @@ const middlewareClient = (...middleware) => {
     }
 };
 
-export { request, middlewareClient };
+export { request, middlewareClient, Result };
