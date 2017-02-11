@@ -1,42 +1,50 @@
 # [thru]()
 
-A simple middleware wrapper for Ajax/HTTP clients.
+A simple middleware wrapper for `fetch` and other promise-based, HTTP libraries.
  
-Example use:
+Example usage:
 
-### `fetch`
+### with `fetch`:
 ```javascript
 import { middlewareClient } from 'thru';
 
-import * as constants from './constants';
+/* ... all other necessary imports ... */
 
 const client = middlewareClient( 
-  doSomething, 
-  setCookies 
+  updateState, 
+  setCookies,
+  checkResponse
 );
 
-client.fetchJSON(constants.API)
- .then(json => json);
- 
-client.fetch(constants.API)
- .then(result => result);
- 
+client.fetchJSON(API)
+ .then(Result => Result.unwrap()) //-> This returns parsed JSON object.
+ .then(JSON => /* do something */);
+
+
+client.fetch(API)
+ .then(Result => Result.unwrap()) //-> This returns Response object.
+ .then(Response => /* do something */);
 
  
  ```
  
-###`other`
+### all `other` Promise use cases:
 ```javascript
-import axios from 'axios';
 import { middlewareClient } from 'thru';
 
-import * as constants from './constants';
+/* ... all other necessary imports ... */
 
 const client = middlewareClient( 
-  doSomething, 
-  setCookies 
+  updateState, 
+  setCookies,
+  checkResponse
 );
 
 client.request(axios.get, constants.API)
- .then(result => result)
+ .then(Result => Result); //-> This returns Result type with axios compatible response.
+
+client.request($.post, constants.API, settings)
+ .then(Result => Result); //-> This returns Result type with jquery compatible response.
 ```
+
+
