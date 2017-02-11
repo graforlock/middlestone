@@ -11,6 +11,8 @@ import AsyncResult from './async-result';
 
 import { fetchWrapper } from './drivers';
 
+import httpHandler from './lib/http-handler';
+
 const request =  partial((middleware, asyncRequest, ...args) => {
     const asyncResult = asyncRequest(...args);
 
@@ -25,8 +27,8 @@ const request =  partial((middleware, asyncRequest, ...args) => {
 const middlewareClient = (...middleware) => {
     return {
         request:   request(compose(...middleware)),
-        fetch:     request.bind(null, (compose(...middleware)), fetch),
-        fetchJSON: request.bind(null, fetchWrapper(compose(...middleware)), fetch)
+        fetch:     (...args) => request(compose(...middleware, httpHandler), fetch, ...args),
+        fetchJSON: (...args) => request(compose(fetchWrapper(compose(...middleware)), httpHandler), fetch, ...args)
     }
 };
 

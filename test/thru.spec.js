@@ -71,10 +71,9 @@ test("Library compatibility for unwrapping GET/POST requests", expect => {
 
 test("middlewareClient functionality for GET/POST requests", expect => {
     expect.plan(2);
-    let client = middlewareClient(x => x);
+    let client = middlewareClient(x => x.id);
 
     client.fetchJSON(settings.API_GET)
-        .then(x => x.id)
         .then(id => {  expect.equals(typeof id , 'number',
             '| middlewareClient fetches the fetch request with simple middleware.') });
 
@@ -82,7 +81,6 @@ test("middlewareClient functionality for GET/POST requests", expect => {
             method: 'POST',
             body: { title: "Mayo", body: "naise" }
         })
-        .then(x => x.id)
         .then(id => {  expect.equals(typeof id , 'number',
             '| middlewareClient posts the fetch request with simple middleware.') });
 

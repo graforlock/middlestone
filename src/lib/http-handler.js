@@ -9,7 +9,7 @@ export default (response) => {
             case HttpStatus.SERVICE_UNAVAILABLE:
             case HttpStatus.FORBIDDEN:
             case HttpStatus.LOCKED:
-                return new Err(response.status);
+                return new Err(response);
             default:
                 break;
         }

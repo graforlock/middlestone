@@ -1,0 +1,44 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'test' ]
+2 info using npm@3.10.6
+3 info using node@v4.5.0
+4 verbose run-script [ 'pretest', 'test', 'posttest' ]
+5 info lifecycle thru@1.0.0~pretest: thru@1.0.0
+6 silly lifecycle thru@1.0.0~pretest: no script for pretest, continuing
+7 info lifecycle thru@1.0.0~test: thru@1.0.0
+8 verbose lifecycle thru@1.0.0~test: unsafe-perm in lifecycle true
+9 verbose lifecycle thru@1.0.0~test: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/maciejsitko/WebstormProjects/untitled5/node_modules/.bin:/Users/maciejsitko/Library/Haskell/bin:/opt/local/bin:/opt/local/sbin:/Users/maciejsitko/.cargo/bin:/Users/maciejsitko/.rvm/gems/ruby-2.3.0/bin:/Users/maciejsitko/.rvm/gems/ruby-2.3.0@global/bin:/Users/maciejsitko/.rvm/rubies/ruby-2.3.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/maciejsitko/.rvm/bin:/usr/local/opt/wildfly-as/libexec/bin
+10 verbose lifecycle thru@1.0.0~test: CWD: /Users/maciejsitko/WebstormProjects/untitled5
+11 silly lifecycle thru@1.0.0~test: Args: [ '-c', 'karma.cmd start karma.conf.js' ]
+12 info lifecycle thru@1.0.0~test: Failed to exec test script
+13 verbose stack Error: thru@1.0.0 test: `karma.cmd start karma.conf.js`
+13 verbose stack spawn ENOENT
+13 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:33:16)
+13 verbose stack     at emitTwo (events.js:87:13)
+13 verbose stack     at ChildProcess.emit (events.js:172:7)
+13 verbose stack     at maybeClose (internal/child_process.js:829:16)
+13 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+14 verbose pkgid thru@1.0.0
+15 verbose cwd /Users/maciejsitko/WebstormProjects/untitled5
+16 error Darwin 16.3.0
+17 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "test"
+18 error node v4.5.0
+19 error npm  v3.10.6
+20 error file sh
+21 error code ELIFECYCLE
+22 error errno ENOENT
+23 error syscall spawn
+24 error thru@1.0.0 test: `karma.cmd start karma.conf.js`
+24 error spawn ENOENT
+25 error Failed at the thru@1.0.0 test script 'karma.cmd start karma.conf.js'.
+25 error Make sure you have the latest version of node.js and npm installed.
+25 error If you do, this is most likely a problem with the thru package,
+25 error not with npm itself.
+25 error Tell the author that this fails on your system:
+25 error     karma.cmd start karma.conf.js
+25 error You can get information on how to open an issue for this project with:
+25 error     npm bugs thru
+25 error Or if that isn't available, you can get their info via:
+25 error     npm owner ls thru
+25 error There is likely additional logging output above.
+26 verbose exit [ 1, true ]
