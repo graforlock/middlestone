@@ -5,8 +5,12 @@ export default class Ok extends Result {
         super(x);
     }
 
-    map(f) {
-        return new Ok(f(this.x));
+    map(fn) {
+        return new Ok(fn(this.x));
+    }
+
+    orElse(_) {
+        return new Ok(this.x);
     }
 }
 

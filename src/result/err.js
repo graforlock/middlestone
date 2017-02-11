@@ -8,5 +8,9 @@ export default class Err extends Result {
     map(_) {
         return new Err(this.x);
     }
+
+    orElse(fn) {
+         return new Err(fn(this.x));
+    }
 }
 

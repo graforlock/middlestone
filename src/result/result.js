@@ -14,5 +14,4 @@ export default class Result {
     isErr() {
         return this.constructor.name === 'Err';
     }
-
 }

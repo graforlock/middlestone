@@ -10,22 +10,27 @@ import { request, middlewareClient } from '../src';
 
 import { compose, constant, immediate, identity, isThennable, partial } from '../src/lib';
 
+import { Err, Ok } from '../src/result';
+
+
 import AsyncResult from '../src/async-result';
 import httpHandler from '../src/lib/http-handler';
 
 const settings = Object.freeze({
     API_GET: 'https://jsonplaceholder.typicode.com/posts/1',
-    API_POST: 'https://jsonplaceholder.typicode.com/posts'
+    API_POST: 'https://jsonplaceholder.typicode.com/posts',
+    ERROR_MSG : 'Error has occured!',
+    SUCCESS_MSG: 'Result is: true.'
 });
 
-test("Thru import exists", expect => {
+test("Import exists", expect => {
     expect.plan(1);
 
     expect.ok(request,
         '| Module import test.');
 });
 
-test("Thru is partially applied and returns then for immediate values", expect => {
+test("Request is partially applied and returns then for immediate values", expect => {
     expect.plan(2);
 
     expect.equals(typeof request(x => x), 'function',
@@ -62,7 +67,7 @@ test("Library compatibility for unwrapping GET/POST requests", expect => {
 
 });
 
-test("middlewareClient functionality for GET/POST requests", expect => {
+test("Middleware Client functionality for GET/POST requests", expect => {
     expect.plan(2);
     let client = middlewareClient(x => x.id);
 
@@ -81,7 +86,7 @@ test("middlewareClient functionality for GET/POST requests", expect => {
 
 });
 
-test("Thru core library tests", expect => {
+test("Core library tests", expect => {
     expect.plan(9);
 
     const addTwo = (a, b) => a + b;
@@ -107,6 +112,29 @@ test("Thru core library tests", expect => {
 
     expect.equal(immediate(() => 10, x => x * x).unwrap(), 100,
         '| An immediate value return.');
+});
+
+test("Err/Ok tests", expect => {
+    expect.plan(4);
+
+    const error = new Err(settings.ERROR_MSG)
+        .map(identity)
+        .orElse(x => x.toUpperCase());
+
+    expect.notEqual(error.unwrap(), settings.ERROR_MSG,
+        '| Err ignores map.');
+    expect.equal(error.unwrap().toLowerCase(), settings.ERROR_MSG.toLowerCase(),
+        '| Err doesn\'t ignore orElse.');
+
+    const ok = new Ok(true)
+        .map(_ => settings.SUCCESS_MSG)
+        .orElse(identity);
+
+    expect.notEqual(ok.unwrap(), true,
+        '| Ok ignores orElse.');
+    expect.equal(ok.unwrap(), settings.SUCCESS_MSG,
+        '| Ok doesn\'t ignore map.');
+
 });
 
 
