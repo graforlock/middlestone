@@ -20,17 +20,18 @@ const settings = Object.freeze({
     API_GET: 'https://jsonplaceholder.typicode.com/posts/1',
     API_POST: 'https://jsonplaceholder.typicode.com/posts',
     ERROR_MSG : 'Error has occured!',
-    SUCCESS_MSG: 'Result is: true.'
+    SUCCESS_MSG: 'Result is: true.',
+    SPACER: '----'
 });
 
-test("Import exists", expect => {
+test(`\n${settings.SPACER}[1] Import exists${settings.SPACER}`, expect => {
     expect.plan(1);
 
     expect.ok(request,
         '| Module import test.');
 });
 
-test("Request is partially applied and returns then for immediate values", expect => {
+test(`\n${settings.SPACER}[2] Request is partially applied and returns then for immediate values${settings.SPACER}`, expect => {
     expect.plan(2);
 
     expect.equals(typeof request(x => x), 'function',
@@ -40,7 +41,7 @@ test("Request is partially applied and returns then for immediate values", expec
 
 });
 
-test("Library compatibility for unwrapping GET/POST requests", expect => {
+test(`\n${settings.SPACER}[3] Library compatibility for unwrapping GET/POST requests${settings.SPACER}`, expect => {
     expect.plan(2);
 
     let  axiosOutput = null,
@@ -67,7 +68,7 @@ test("Library compatibility for unwrapping GET/POST requests", expect => {
 
 });
 
-test("Middleware Client functionality for GET/POST requests", expect => {
+test(`\n${settings.SPACER}[4] Middleware Client functionality for GET/POST requests${settings.SPACER}`, expect => {
     expect.plan(2);
     let client = middlewareClient(x => x.id);
 
@@ -86,7 +87,7 @@ test("Middleware Client functionality for GET/POST requests", expect => {
 
 });
 
-test("Core library tests", expect => {
+test(`\n${settings.SPACER}[5] Core library tests${settings.SPACER}`, expect => {
     expect.plan(9);
 
     const addTwo = (a, b) => a + b;
@@ -114,7 +115,7 @@ test("Core library tests", expect => {
         '| An immediate value return.');
 });
 
-test("Err/Ok tests", expect => {
+test(`\n${settings.SPACER}[6] Err/Ok tests${settings.SPACER}`, expect => {
     expect.plan(4);
 
     const error = new Err(settings.ERROR_MSG)
