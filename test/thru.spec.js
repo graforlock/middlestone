@@ -1,6 +1,6 @@
 import test from 'tape';
 
-import * as drivers from '../src/drivers';
+import * as drivers from '../src/core';
 
 import $ from 'jquery';
 import axios from 'axios';
@@ -48,7 +48,7 @@ test("Library compatibility for unwrapping GET/POST requests", expect => {
         .then(() => { expect.equals(typeof jQueryOutput , 'number',
             '| Request is jQuery GET ompatible.') });
 
-    request(drivers.fetchWrapper(compose(x => x.id, httpHandler)), fetch, settings.API_GET)
+    request(drivers.toJson(compose(x => x.id, httpHandler)), fetch, settings.API_GET)
         .then(result => result.unwrap())
         .then(id => { fetchOutput = id; })
         .then(() => { expect.equals(typeof fetchOutput , 'number',

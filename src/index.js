@@ -9,7 +9,7 @@ import {
 import fetch from 'isomorphic-fetch';
 import AsyncResult from './async-result';
 
-import { fetchWrapper } from './drivers';
+import { toJson } from './core';
 
 import httpHandler from './lib/http-handler';
 
@@ -28,7 +28,7 @@ const middlewareClient = (...middleware) => {
     return {
         request:   (...args) => request(compose(...middleware, httpHandler), ...args),
         fetch:     (...args) => request(compose(...middleware, httpHandler), fetch, ...args),
-        fetchJSON: (...args) => request(compose(fetchWrapper(compose(...middleware)), httpHandler), fetch, ...args)
+        fetchJSON: (...args) => request(compose(toJson(compose(...middleware)), httpHandler), fetch, ...args)
     }
 };
 
