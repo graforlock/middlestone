@@ -18,5 +18,4 @@ export default class Result {
     inspect() {
         return `${this.constructor.name}(${this.x})`;
     }
-
 }

@@ -6,12 +6,11 @@ import $ from 'jquery';
 import axios from 'axios';
 import fetch from 'isomorphic-fetch';
 
-import { request, middlewareClient } from '../src';
+import { request, middlewareClient, Result } from '../src';
 
 import { compose, constant, immediate, identity, isThennable, partial } from '../src/lib';
 
 import { Err, Ok } from '../src/result';
-
 
 import AsyncResult from '../src/async-result';
 import httpHandler from '../src/lib/http-handler';
@@ -116,6 +115,13 @@ test(`\n${settings.SPACER}[5] Core library tests${settings.SPACER}`, expect => {
 });
 
 test(`\n${settings.SPACER}[6] Err/Ok tests${settings.SPACER}`, expect => {
+   expect.plan(1);
+
+   expect.ok(Result,
+       '| Module import test.');
+});
+
+test(`\n${settings.SPACER}[7] Err/Ok tests${settings.SPACER}`, expect => {
     expect.plan(4);
 
     const error = new Err(settings.ERROR_MSG)
