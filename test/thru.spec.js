@@ -7,6 +7,7 @@ import axios from 'axios';
 import fetch from 'isomorphic-fetch';
 
 import { request, middlewareClient, Result } from '../src';
+import * as thru from '../src';
 
 import { compose, constant, immediate, identity, isThennable, partial } from '../src/lib';
 
@@ -26,10 +27,12 @@ const settings = Object.freeze({
 });
 
 test(`\n${settings.SPACER}[1] Import exists${settings.SPACER}`, expect => {
-    expect.plan(1);
+    expect.plan(2);
 
     expect.ok(request,
         '| Module import test.');
+    expect.equal(Object.keys(thru).length, 4,
+        '| Module exports 4 interfaces.')
 });
 
 test(`\n${settings.SPACER}[2] Request is partially applied and returns then for immediate values${settings.SPACER}`, expect => {
@@ -73,12 +76,12 @@ test(`\n${settings.SPACER}[4] Middleware Client functionality for GET/POST reque
     expect.plan(2);
     let client = middlewareClient(x => x.id);
 
-    client.fetchJSON(settings.API_GET)
+    client.fetch(settings.API_GET)
         .then(result => result.unwrap())
         .then(id => { expect.equals(typeof id , 'number',
             '| middlewareClient fetches the fetch request with simple middleware.') });
 
-    client.fetchJSON(settings.API_POST, {
+    client.fetch(settings.API_POST, {
             method: 'POST',
             body: "title=Mayo&body=naise"
         })

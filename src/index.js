@@ -29,9 +29,8 @@ const request =  partial((middleware, asyncRequest, ...args) => {
 const middlewareClient = (...middleware) => {
     return {
         request:   (...args) => request(compose(...middleware, httpHandler), ...args),
-        fetch:     (...args) => request(compose(...middleware, httpHandler), fetch, ...args),
-        fetchJSON: (...args) => request(compose(toJson(compose(...middleware)), httpHandler), fetch, ...args)
+        fetch:     (...args) => request(compose(toJson(compose(...middleware)), httpHandler), fetch, ...args)
     }
 };
 
-export { request, middlewareClient, Result };
+export { fetch, middlewareClient, Result, request };
