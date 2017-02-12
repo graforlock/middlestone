@@ -2,7 +2,7 @@
   "name": "thru",
   "version": "1.0.0",
   "description": "Ajax Middleware",
-  "main": "index.js",
+  "main": "dist/thru.umd.js",
   "dependencies": {
     "es6-promise": "^4.0.5",
     "isomorphic-fetch": "^2.2.1"
