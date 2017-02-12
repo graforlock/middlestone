@@ -12,5 +12,9 @@ export default class Err extends Result {
     orElse(fn) {
          return new Err(fn(this.x));
     }
+
+    andThen(_) {
+        return new Err(this.x);
+    }
 }
 

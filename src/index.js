@@ -1,9 +1,9 @@
 import {
     isThennable,
     immediate,
-    partial,
     constant,
-    compose
+    compose,
+    partial
 } from './lib';
 
 import fetch from 'isomorphic-fetch';
