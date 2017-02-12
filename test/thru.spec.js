@@ -15,9 +15,11 @@ import { Err, Ok } from '../src/result';
 import AsyncResult from '../src/async-result';
 import httpHandler from '../src/lib/http-handler';
 
+const API_URL = 'https://jsonplaceholder.typicode.com';
+
 const settings = Object.freeze({
-    API_GET: 'https://jsonplaceholder.typicode.com/posts/1',
-    API_POST: 'https://jsonplaceholder.typicode.com/posts',
+    API_GET: `${API_URL}/posts/1`,
+    API_POST: `${API_URL}/posts`,
     ERROR_MSG : 'Error has occured!',
     SUCCESS_MSG: 'Result is: true.',
     SPACER: '----'
