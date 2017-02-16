@@ -1,4 +1,4 @@
 export default {
-    THENNABLE: 0,
-    NOT_THENNABLE: 1
+    NOT_THENNABLE: 0,
+    THENNABLE: 1
 };

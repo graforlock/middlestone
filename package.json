@@ -30,8 +30,8 @@
     "yargs": "^6.6.0"
   },
   "scripts": {
-    "dev": "node_modules/.bin/webpack.cmd --watch",
-    "test": "node_modules/.bin/karma.cmd start karma.conf.js"
+    "dev": "node_modules/.bin/webpack --watch",
+    "test": "node_modules/.bin/karma start karma.conf.js"
   },
   "repository": {
     "type": "git",

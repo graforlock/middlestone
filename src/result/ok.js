@@ -15,7 +15,7 @@ export default class Ok extends Result {
     }
 
     andThen(fn) {
-        return isThennable(fn)
+        return isThennable(this.x)
             ? new Ok(this.x.then(fn))
             : new Ok(fn(this.x));
     }
