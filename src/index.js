@@ -20,7 +20,8 @@ const request =  partial((middleware, asyncRequest, ...args) => {
 
     switch(isThennable(asyncResult)) {
         case AsyncResult.NOT_THENNABLE:
-            return immediate(constant(asyncResult), middleware);
+            const syncResult = asyncResult;
+            return immediate(constant(syncResult), middleware);
         case AsyncResult.THENNABLE:
             return asyncResult.then(middleware);
     }
