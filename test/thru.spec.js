@@ -108,7 +108,7 @@ test(`\n${settings.SPACER}[4] Middleware Client functionality for GET/POST reque
 });
 
 test(`\n${settings.SPACER}[5] Core library tests${settings.SPACER}`, expect => {
-    expect.plan(9);
+    expect.plan(11);
 
     const addTwo = (a, b) => a + b;
 
@@ -116,6 +116,11 @@ test(`\n${settings.SPACER}[5] Core library tests${settings.SPACER}`, expect => {
         '| Constant returns a function type.');
     expect.equal(typeof constant(() => 10)(), 'number',
         '| Constant returns a number result.');
+
+    expect.equal(compose(x => x, x => x * 2, x => x + x)(5), 20,
+        '| Compose processes a correct sync value.');
+    expect.equal(typeof compose(identity, url => fetch(url))(settings.API_GET).then, 'function',
+        '| Compose processes a correct promise value.');
 
     expect.equal(isThennable(123), AsyncResult.NOT_THENNABLE,
         '| isThennable returns a NOT_THENNABLE enum.');
