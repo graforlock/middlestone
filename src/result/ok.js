@@ -19,5 +19,13 @@ export default class Ok extends Result {
             ? new Ok(this.x.then(fn))
             : new Ok(fn(this.x));
     }
+
+    unwrapOr(_) {
+        this.unwrap();
+    }
+
+    unwrapOrElse() {
+        this.unwrap();
+    }
 }
 
