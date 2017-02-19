@@ -1,10 +1,11 @@
-import compose from './compose';
+import asyncCompose from './compose';
 import constant from './constant';
 import immediate from './immediate';
 import identity from './identity';
 import isThennable from './is-thennable';
 import pipe from './pipe';
 import partial from './partial';
+import Tuple from './tuple';
 
 
-export { identity, isThennable, compose, constant, immediate, pipe, partial };
+export { asyncCompose, identity, isThennable, constant, immediate, pipe, partial, Tuple };

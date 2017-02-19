@@ -14,22 +14,21 @@ var plugins = [new BrowserSyncPlugin({
     host: 'localhost',
     port: 3000,
     server: { baseDir: ['dist'] }
-})], outputFile;
+})];
 
 if (argv.build == 'prod') {
     plugins.push(new UglifyJsPlugin({ minimize: true }));
-    outputFile = libraryName.toLowerCase() + '.umd.min.js';
-} else {
-    outputFile = libraryName.toLowerCase() + '.umd.js';
 }
 
-
 module.exports = {
-    entry: sourceEntryPoint,
+    entry: {
+        '/': './src/index.js',
+        '/collections/': './src/collections/index.js'
+    },
     devtool: 'source-map',
     output: {
         path: path.resolve(distDir),
-        filename: outputFile,
+        filename: '[name]index.js',
         library: libraryName,
         libraryTarget: 'umd',
         umdNamedDefine: true

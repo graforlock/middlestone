@@ -1,21 +1,20 @@
 import {
     isThennable,
+    identity,
     immediate,
     constant,
-    compose,
+    asyncCompose,
     partial
 } from './lib';
 
 import fetch from 'isomorphic-fetch';
 import AsyncResult from './async-result';
 
-import * as Result from './result';
-
 import { toJson } from './core';
 
 import httpHandler from './lib/http-handler';
 
-const request =  partial((middleware, asyncRequest, ...args) => {
+const _request =  partial((middleware, asyncRequest, ...args) => {
     const asyncResult = asyncRequest(...args);
 
     switch(isThennable(asyncResult)) {
@@ -28,9 +27,13 @@ const request =  partial((middleware, asyncRequest, ...args) => {
 
 const middlewareClient = (...middleware) => {
     return {
-        request:   (...args) => request(compose(...middleware, httpHandler), ...args),
-        fetch:     (...args) => request(compose(toJson(compose(...middleware)), httpHandler), fetch, ...args)
+        request: (...args) => {
+            const transforms = asyncCompose(toJson(asyncCompose(...middleware)), httpHandler);
+            return _request(transforms, fetch, ...args)
+        }
     }
 };
 
-export { fetch, middlewareClient, Result, request };
+const request = middlewareClient(identity).request;
+
+export { middlewareClient, request };
