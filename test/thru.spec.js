@@ -6,12 +6,12 @@ import $ from 'jquery';
 import axios from 'axios';
 import fetch from 'isomorphic-fetch';
 
-import { request, middlewareClient, Result } from '../src';
+import {request, middlewareClient, Result} from '../src';
 import * as thru from '../src';
 
-import { compose, constant, immediate, identity, isThennable, partial } from '../src/lib';
+import {compose, constant, immediate, identity, isThennable, partial} from '../src/lib';
 
-import { Err, Ok } from '../src/result';
+import {Err, Ok} from '../src/result';
 
 import AsyncResult from '../src/async-result';
 import httpHandler from '../src/lib/http-handler';
@@ -21,7 +21,7 @@ const API_URL = 'https://jsonplaceholder.typicode.com';
 const settings = Object.freeze({
     API_GET: `${API_URL}/posts/1`,
     API_POST: `${API_URL}/posts`,
-    ERROR_MSG : 'Error has occured!',
+    ERROR_MSG: 'Error has occured!',
     SUCCESS_MSG: 'Result is: true.',
     SPACER: '----'
 });
@@ -48,27 +48,39 @@ test(`\n${settings.SPACER}[2] Request is partially applied and returns then for 
 test(`\n${settings.SPACER}[3] Library compatibility for unwrapping GET/POST requests${settings.SPACER}`, expect => {
     expect.plan(2);
 
-    let  axiosOutput = null,
-         fetchOutput = null,
-         jQueryOutput = null;
+    let axiosOutput = null,
+        fetchOutput = null,
+        jQueryOutput = null;
 
     request(identity, $.get, settings.API_GET)
         .then(x => x.id)
-        .then(id => { jQueryOutput = id; })
-        .then(() => { expect.equals(typeof jQueryOutput , 'number',
-            '| Request is jQuery GET ompatible.') });
+        .then(id => {
+            jQueryOutput = id;
+        })
+        .then(() => {
+            expect.equals(typeof jQueryOutput, 'number',
+                '| Request is jQuery GET ompatible.')
+        });
 
     request(drivers.toJson(compose(x => x.id, httpHandler)), fetch, settings.API_GET)
         .then(result => result.unwrap())
-        .then(id => { fetchOutput = id; })
-        .then(() => { expect.equals(typeof fetchOutput , 'number',
-            '| Request is fetch compatible.') });
+        .then(id => {
+            fetchOutput = id;
+        })
+        .then(() => {
+            expect.equals(typeof fetchOutput, 'number',
+                '| Request is fetch compatible.')
+        });
 
     request(x => x.data, axios.get, settings.API_GET)
         .then(x => x.id)
-        .then(id => { axiosOutput = id; })
-        .then(() => { expect.equals(typeof axiosOutput , 'number',
-            '| Request is axios compatible.') });
+        .then(id => {
+            axiosOutput = id;
+        })
+        .then(() => {
+            expect.equals(typeof axiosOutput, 'number',
+                '| Request is axios compatible.')
+        });
 
 });
 
@@ -78,21 +90,25 @@ test(`\n${settings.SPACER}[4] Middleware Client functionality for GET/POST reque
 
     client.fetch(settings.API_GET)
         .then(result => result.unwrap())
-        .then(id => { expect.equals(typeof id , 'number',
-            '| middlewareClient fetches the fetch request with simple middleware.') });
+        .then(id => {
+            expect.equals(typeof id, 'number',
+                '| middlewareClient fetches the fetch request with simple middleware.')
+        });
 
     client.fetch(settings.API_POST, {
-            method: 'POST',
-            body: "title=Mayo&body=naise"
-        })
+        method: 'POST',
+        body: "title=Mayo&body=naise"
+    })
         .then(result => result.unwrap())
-        .then(id => { expect.equals(typeof id , 'number',
-            '| middlewareClient posts the fetch request with simple middleware.') });
+        .then(id => {
+            expect.equals(typeof id, 'number',
+                '| middlewareClient posts the fetch request with simple middleware.')
+        });
 
 });
 
 test(`\n${settings.SPACER}[5] Core library tests${settings.SPACER}`, expect => {
-    expect.plan(9);
+    expect.plan(11);
 
     const addTwo = (a, b) => a + b;
 
@@ -100,6 +116,11 @@ test(`\n${settings.SPACER}[5] Core library tests${settings.SPACER}`, expect => {
         '| Constant returns a function type.');
     expect.equal(typeof constant(() => 10)(), 'number',
         '| Constant returns a number result.');
+
+    expect.equal(compose(x => x, x => x * 2, x => x + x)(5), 20,
+        '| Compose processes a correct sync value.');
+    expect.equal(typeof compose(identity, url => fetch(url))(settings.API_GET).then, 'function',
+        '| Compose processes a correct promise value.');
 
     expect.equal(isThennable(123), AsyncResult.NOT_THENNABLE,
         '| isThennable returns a NOT_THENNABLE enum.');
@@ -119,11 +140,32 @@ test(`\n${settings.SPACER}[5] Core library tests${settings.SPACER}`, expect => {
         '| An immediate value return.');
 });
 
-test(`\n${settings.SPACER}[6] Err/Ok tests${settings.SPACER}`, expect => {
-   expect.plan(1);
+test(`\n${settings.SPACER}[6] Result tests${settings.SPACER}`, expect => {
+    expect.plan(9);
 
-   expect.ok(Result,
-       '| Module import test.');
+    expect.ok(Result,
+        '| Module import test.');
+
+    const ok = new Ok(1234),
+          err = new Err('Error has occurred');
+
+    expect.equals(typeof ok.unwrap, 'function',
+        '| Ok implements Result\'s .unwrap().');
+    expect.equals(typeof ok.isOk, 'function',
+        '| Ok implements Result\'s .isOk().');
+    expect.equals(typeof ok.isErr, 'function',
+        '| Ok implements Result\'s .isErr().');
+    expect.equals(typeof ok.inspect, 'function',
+        '| Ok implements Result\'s .inspect.');
+
+    expect.equals(typeof err.unwrap, 'function',
+        '| Err implements Result\'s .unwrap().');
+    expect.equals(typeof err.isOk, 'function',
+        '| Err implements Result\'s .isOk().');
+    expect.equals(typeof err.isErr, 'function',
+        '| Err implements Result\'s .isErr().');
+    expect.equals(typeof err.inspect, 'function',
+        '| Err implements Result\'s .inspect.');
 });
 
 test(`\n${settings.SPACER}[7] Err/Ok tests${settings.SPACER}`, expect => {

@@ -16,5 +16,13 @@ export default class Err extends Result {
     andThen(_) {
         return new Err(this.x);
     }
+
+    unwrapOr(x) {
+        return x;
+    }
+
+    unwrapOrElse(fn) {
+        return fn(this.x);
+    }
 }
 
