@@ -1,7 +1,7 @@
 {
   "name": "fetch-thru",
-  "version": "0.0.2",
-  "description": "Ajax Middleware",
+  "version": "0.0.3",
+  "description": "HTTP Middleware",
   "main": "dist/index.js",
   "dependencies": {
     "es6-promise": "^4.0.5",
