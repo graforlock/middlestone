@@ -1,5 +1,4 @@
 coverage
-dist/*.js
 dist/*.js.map
 node_modules
 .idea
