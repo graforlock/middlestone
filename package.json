@@ -2,7 +2,7 @@
   "name": "fetch-thru",
   "version": "0.0.2",
   "description": "Ajax Middleware",
-  "main": "dist/",
+  "main": "dist/index.js",
   "dependencies": {
     "es6-promise": "^4.0.5",
     "isomorphic-fetch": "^2.2.1"

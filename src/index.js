@@ -10,6 +10,9 @@ import {
 import fetch from 'isomorphic-fetch';
 import AsyncResult from './async-result';
 
+import * as Result from './result';
+import Tuple from './lib/tuple'
+
 import { toJson } from './core';
 
 import httpHandler from './lib/http-handler';
@@ -37,4 +40,4 @@ const middlewareClient = (...middleware) => {
 
 const request = middlewareClient(identity).request;
 
-export { middlewareClient, request };
+export { middlewareClient, request, Tuple, Result };

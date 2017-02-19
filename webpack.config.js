@@ -22,8 +22,7 @@ if (argv.build == 'prod') {
 
 module.exports = {
     entry: {
-        '/': './src/index.js',
-        '/collections/': './src/collections/index.js'
+        '/': './src/index.js'
     },
     devtool: 'source-map',
     output: {
