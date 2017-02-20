@@ -1,3 +1,10 @@
+import {identity} from '../lib';
+
+export function getComposable(middleware) {
+    const composable = middleware.filter(x => typeof x === 'function');
+    return composable.length ? composable : identity;
+}
+
 export function getConfig(middleware) {
     const objects = middleware.filter(x => typeof x === 'object');
     return objects[0] ? objects[0] : {};

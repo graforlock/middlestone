@@ -1,3 +1,3 @@
-import { toJson, getConfig } from './fetch';
+import { toJson, getConfig, getComposable } from './fetch';
 
-export { toJson, getConfig };
+export { toJson, getConfig, getComposable };
