@@ -20,9 +20,11 @@ import {toJson, getConfig, getComposable} from './core';
 
 import httpHandler from './lib/http-handler';
 
+let _lastCall = null;
+
 const _request = partial((middleware, asyncRequest, ...args) => {
     const asyncResult = asyncRequest(...args);
-
+    _lastCall = args;
     switch (isThennable(asyncResult)) {
         case AsyncResult.NOT_THENNABLE:
             const syncResult = asyncResult;
@@ -31,6 +33,7 @@ const _request = partial((middleware, asyncRequest, ...args) => {
                 reject => reject(new Result.Err(Messages.SYNC_ERR))
             );
         case AsyncResult.THENNABLE:
+            console.log(_lastCall);
             return asyncResult.then(middleware);
     }
 });
@@ -43,17 +46,11 @@ const middlewareClient = (...middleware) => {
 
             const handleResponse = toJson(asyncCompose(...composables), config);
             return _request(asyncCompose(handleResponse, httpHandler), fetch, ...args);
-        }
+        },
+        retry: () => this.request(..._lastCall)
     }
-};
-
-const retry = function retry(request, { tick = 100, ms = 100, inc = 1 }) {
-    if(tick === 0) return new Result.Err(Messages.RETRY_ERR);
-    request().then(x => x
-        .andThen(identity)
-        .orElse(v => setTimeout(retry.bind(null, request, {tick: tick - 1, ms: ms * inc, inc}), ms)));
 };
 
 const request = middlewareClient(identity).request;
 
-export {middlewareClient, request, retry, Tuple, Result};
+export {middlewareClient, request, Tuple, Result};

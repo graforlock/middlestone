@@ -17,6 +17,6 @@ const handleErr = (config, x) => {
 export function toJson(composed, config) {
     return res =>
          handleErr(config, res)
-             ? res.orElse(config[res.unwrap()])
+             ? res.orElse(config[res.unwrap()]).unwrap()
              : res.map(r => r.json().then(composed))
 }
