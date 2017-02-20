@@ -1448,12 +1448,12 @@ function getConfig(middleware) {
     return config.length ? config[0] : {};
 }
 
-const handleStatus = (config, x) => {
+const handleErr = (config, x) => {
     return x.isErr() && config[x.unwrap()];
 };
 
 function toJson(composed, config) {
-    return res => handleStatus(config, res) ? res.orElse(config[res.unwrap()]) : res.map(r => r.json().then(composed));
+    return res => handleErr(config, res) ? res.orElse(config[res.unwrap()]) : res.map(r => r.json().then(composed));
 }
 
 /***/ }),
@@ -2342,9 +2342,9 @@ const middlewareClient = (...middleware) => {
     };
 };
 
-const retry = (request, tick = 100, ms = 100) => {
+const retry = function retry(request, { tick = 100, ms = 100, inc = 1 }) {
     if (tick === 0) return new __WEBPACK_IMPORTED_MODULE_5__result__["Err"](__WEBPACK_IMPORTED_MODULE_4__constants_messages__["a" /* default */].RETRY_ERR);
-    request.then(x => x.andThen(__WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */]).orElse(v => setTimeout(retry.bind(null, request, tick - 1, ms), ms)));
+    request().then(x => x.andThen(__WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */]).orElse(v => setTimeout(retry.bind(null, request, { tick: tick - 1, ms: ms * inc, inc }), ms)));
 };
 
 const request = middlewareClient(__WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */]).request;

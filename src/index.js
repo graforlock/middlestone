@@ -47,14 +47,13 @@ const middlewareClient = (...middleware) => {
     }
 };
 
-const retry = (request, tick = 100, ms = 100) => {
+const retry = function retry(request, { tick = 100, ms = 100, inc = 1 }) {
     if(tick === 0) return new Result.Err(Messages.RETRY_ERR);
-    request.then(x => x
+    request().then(x => x
         .andThen(identity)
-        .orElse(v => setTimeout(retry.bind(null, request, tick - 1, ms), ms)));
+        .orElse(v => setTimeout(retry.bind(null, request, {tick: tick - 1, ms: ms * inc, inc}), ms)));
 };
 
 const request = middlewareClient(identity).request;
-
 
 export {middlewareClient, request, retry, Tuple, Result};

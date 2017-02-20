@@ -10,13 +10,13 @@ export function getConfig(middleware) {
     return config.length ? config[0] : {};
 }
 
-const handleStatus = (config, x) => {
+const handleErr = (config, x) => {
     return x.isErr() && config[x.unwrap()];
 };
 
 export function toJson(composed, config) {
     return res =>
-         handleStatus(config, res)
+         handleErr(config, res)
              ? res.orElse(config[res.unwrap()])
              : res.map(r => r.json().then(composed))
 }
