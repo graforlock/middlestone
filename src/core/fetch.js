@@ -1,10 +1,15 @@
-const handleStatus = (objects, x) => {
-    return !objects.length || x.isErr() && objects[0][x.unwrap()] === 'undefined';
+export function getConfig(middleware) {
+    const objects = middleware.filter(x => typeof x === 'object');
+    return objects[0] ? objects[0] : {};
+}
+
+const handleStatus = (config, x) => {
+    return x.isErr() && config[x.unwrap()] === 'undefined';
 };
 
-export function toJson(composed, objects) {
+export function toJson(composed, config) {
     return res =>
-         handleStatus(objects, res)
+         handleStatus(config, res)
             ? res.map(r => r.json().then(composed))
-            : res.orElse(objects[0][res.unwrap()]);
+            : res.orElse(config[res.unwrap()]);
 }

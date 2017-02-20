@@ -222,7 +222,8 @@ class Result {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fetch__ = __webpack_require__(11);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__fetch__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__fetch__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__fetch__["b"]; });
 
 
 
@@ -256,13 +257,19 @@ module.exports = self.fetch.bind(self);
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = getConfig;
 /* harmony export (immutable) */ __webpack_exports__["a"] = toJson;
-const handleStatus = (objects, x) => {
-    return !objects.length || x.isErr() && objects[0][x.unwrap()] === 'undefined';
+function getConfig(middleware) {
+    const objects = middleware.filter(x => typeof x === 'object');
+    return objects[0] ? objects[0] : {};
+}
+
+const handleStatus = (config, x) => {
+    return x.isErr() && config[x.unwrap()] === 'undefined';
 };
 
-function toJson(composed, objects) {
-    return res => handleStatus(objects, res) ? res.map(r => r.json().then(composed)) : res.orElse(objects[0][res.unwrap()]);
+function toJson(composed, config) {
+    return res => handleStatus(config, res) ? res.map(r => r.json().then(composed)) : res.orElse(config[res.unwrap()]);
 }
 
 /***/ }),
@@ -913,16 +920,23 @@ const _request = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["a" /*
 const middlewareClient = (...middleware) => {
     return {
         request: (...args) => {
-            const objects = middleware.filter(x => typeof x === 'object'),
+            const config = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__core__["a" /* getConfig */])(middleware),
                   functions = middleware.filter(x => typeof x === 'function');
-            const handleOk = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__core__["a" /* toJson */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(...functions), objects);
-            const transforms = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(handleOk, __WEBPACK_IMPORTED_MODULE_6__lib_http_handler__["a" /* default */]);
-            return _request(transforms, __WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch___default.a, ...args);
+            const handleOk = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__core__["b" /* toJson */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(...functions), config);
+            return _request(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(handleOk, __WEBPACK_IMPORTED_MODULE_6__lib_http_handler__["a" /* default */]), __WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch___default.a, ...args);
         }
     };
 };
 
 const request = middlewareClient(__WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */]).request;
+
+// Example:
+// function retry(tick = 100) {
+//     if(tick === 0) return;
+//     middleware(x => x, { 404: x => thru.request('https://jsonplaceholder.typicode.com/posts/1') })
+//         .request('https://jsonplaceholder.typicode.com/polsts/1')
+//         .then(x => x.andThen(identity).orElse(v => setTimeout(retry.bind(null, tick - 1), 250)));
+// }
 
 
 
