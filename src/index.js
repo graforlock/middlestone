@@ -32,8 +32,11 @@ const _request =  partial((middleware, asyncRequest, ...args) => {
 const middlewareClient = (...middleware) => {
     return {
         request: (...args) => {
-            const transforms = asyncCompose(toJson(asyncCompose(...middleware)), httpHandler);
-            return _request(transforms, fetch, ...args)
+            const objects = middleware.filter(x => typeof x === 'object'),
+                   functions = middleware.filter(x => typeof x === 'function');
+            const handleOk = toJson(asyncCompose(...functions), objects);
+            const transforms = asyncCompose(handleOk, httpHandler);
+            return _request(transforms, fetch, ...args);
         }
     }
 };
