@@ -33,7 +33,6 @@ const _request = partial((middleware, asyncRequest, ...args) => {
                 reject => reject(new Result.Err(Messages.SYNC_ERR))
             );
         case AsyncResult.THENNABLE:
-            console.log(_lastCall);
             return asyncResult.then(middleware);
     }
 });
