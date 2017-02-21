@@ -20,11 +20,8 @@ import {toJson, getConfig, getComposable} from './core';
 
 import httpHandler from './lib/http-handler';
 
-let _lastCall = null;
-
 const _request = partial((middleware, asyncRequest, ...args) => {
     const asyncResult = asyncRequest(...args);
-    _lastCall = args;
     switch (isThennable(asyncResult)) {
         case AsyncResult.NOT_THENNABLE:
             const syncResult = asyncResult;
@@ -38,8 +35,11 @@ const _request = partial((middleware, asyncRequest, ...args) => {
 });
 
 const middlewareClient = (...middleware) => {
+    let _lastCall = null;
     return {
         request: (...args) => {
+            _lastCall = args;
+
             const config = getConfig(middleware),
                   composables = getComposable(middleware);
 

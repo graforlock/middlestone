@@ -2319,24 +2319,23 @@ var _this = this;
 
 
 
-let _lastCall = null;
-
 const _request = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["a" /* partial */])((middleware, asyncRequest, ...args) => {
     const asyncResult = asyncRequest(...args);
-    _lastCall = args;
     switch (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["b" /* isThennable */])(asyncResult)) {
         case __WEBPACK_IMPORTED_MODULE_3__async_result__["a" /* default */].NOT_THENNABLE:
             const syncResult = asyncResult;
             return new __WEBPACK_IMPORTED_MODULE_2_es6_promise___default.a(resolve => resolve(new __WEBPACK_IMPORTED_MODULE_5__result__["Ok"](__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["c" /* immediate */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["d" /* constant */])(syncResult), middleware))), reject => reject(new __WEBPACK_IMPORTED_MODULE_5__result__["Err"](__WEBPACK_IMPORTED_MODULE_4__constants_messages__["a" /* default */].SYNC_ERR)));
         case __WEBPACK_IMPORTED_MODULE_3__async_result__["a" /* default */].THENNABLE:
-            console.log(_lastCall);
             return asyncResult.then(middleware);
     }
 });
 
 const middlewareClient = (...middleware) => {
+    let _lastCall = null;
     return {
         request: (...args) => {
+            _lastCall = args;
+
             const config = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__core__["a" /* getConfig */])(middleware),
                   composables = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__core__["b" /* getComposable */])(middleware);
 
