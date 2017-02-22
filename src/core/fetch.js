@@ -1,5 +1,9 @@
 import {identity} from '../lib';
 
+const handleErr = (config, x) => {
+    return x.isErr() && config[x.unwrap()];
+};
+
 export function getComposable(middleware) {
     const composables = middleware.filter(x => typeof x === 'function');
     return composables.length ? composables : identity;
@@ -10,9 +14,9 @@ export function getConfig(middleware) {
     return config.length ? config[0] : {};
 }
 
-const handleErr = (config, x) => {
-    return x.isErr() && config[x.unwrap()];
-};
+export function validObject(response) {
+    return response !== null && typeof response === 'object';
+}
 
 export function toJson(composed, config) {
     return res =>

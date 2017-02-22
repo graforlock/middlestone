@@ -1,4 +1,5 @@
 import isThennable from './is-thennable';
+import { validObject } from '../core';
 
 function fromThen(x, fn) {
     return x.then(fn);
@@ -6,6 +7,6 @@ function fromThen(x, fn) {
 
 export default function asyncCompose(...fns) {
     return (v) => fns.reverse().reduce((x, y) => {
-        return isThennable(x) ? fromThen(x, y) : y(x);
+        return validObject(x) && isThennable(x) ? fromThen(x, y) : y(x);
     }, v);
 }

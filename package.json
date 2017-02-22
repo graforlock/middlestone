@@ -1,6 +1,6 @@
 {
   "name": "fetch-thru",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "HTTP Middleware",
   "main": "dist/index.js",
   "dependencies": {
@@ -30,7 +30,7 @@
     "yargs": "^6.6.0"
   },
   "scripts": {
-    "dev": "node_modules/.bin/webpack --watch",
+    "build": "node_modules/.bin/webpack",
     "test": "node_modules/.bin/karma start karma.conf.js"
   },
   "repository": {
