@@ -2306,19 +2306,22 @@ var _this = this;
 
 
 
+// Main library dependencies:
+
+
+
+// Constants and others:
 
 
 
 
 
+// Core imports:
 
 
 
-
-
-
-
-
+// Request: a private core functionality
+// of the library. This is never directly exposed.
 const _request = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["a" /* partial */])((middleware, asyncRequest, ...args) => {
     const asyncResult = asyncRequest(...args);
     switch (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["b" /* isThennable */])(asyncResult)) {
@@ -2330,6 +2333,10 @@ const _request = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["a" /*
     }
 });
 
+// Middleware Client: Gives ability to use request
+// piped through middleware chain. NOTE: middleware
+// is applied using functional composition, which is
+// right-to-left (so-called reversed pipe).
 const middlewareClient = (...middleware) => {
     let _lastCall = null;
     return {
@@ -2346,8 +2353,13 @@ const middlewareClient = (...middleware) => {
     };
 };
 
+// Request: Exposure of the vanilla request
+// functionality. Applies identity as middleware.
+// Not very useful for more sophisticated retrying
+// functionality.
 const request = middlewareClient(__WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */]).request;
 
+// Exports:
 
 
 /***/ })
