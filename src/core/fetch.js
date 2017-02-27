@@ -1,7 +1,8 @@
 import {identity} from '../lib';
 
 const handleErr = (config, x) => {
-    return x.isErr() && config[x.unwrap()];
+    let {status} = x.unwrap();
+    return x.isErr() && config[status];
 };
 
 export function getComposable(middleware) {
@@ -21,6 +22,6 @@ export function validObject(response) {
 export function toJson(composed, config) {
     return res =>
          handleErr(config, res)
-             ? res.orElse(config[res.unwrap()]).unwrap()
+             ? res.orElse(config[res.unwrap().status]).unwrap()
              : res.map(r => r.json().then(composed))
 }

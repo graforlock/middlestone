@@ -237,7 +237,7 @@ class Result {
     }
 
     inspect() {
-        return `${this.constructor.name}(${this.x})`;
+        return `${this.constructor.name}(${this.x.status})`;
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Result;
@@ -252,7 +252,7 @@ class Result {
 
 
 /* harmony default export */ __webpack_exports__["a"] = response => {
-    return response.status >= 400 ? new __WEBPACK_IMPORTED_MODULE_0__result__["Err"](response.status) : new __WEBPACK_IMPORTED_MODULE_0__result__["Ok"](response);
+    return response.status >= 400 ? new __WEBPACK_IMPORTED_MODULE_0__result__["Err"](response) : new __WEBPACK_IMPORTED_MODULE_0__result__["Ok"](response);
 };
 
 /***/ }),
@@ -1443,7 +1443,8 @@ module.exports = self.fetch.bind(self);
 
 
 const handleErr = (config, x) => {
-    return x.isErr() && config[x.unwrap()];
+    let { status } = x.unwrap();
+    return x.isErr() && config[status];
 };
 
 function getComposable(middleware) {
@@ -1461,7 +1462,7 @@ function validObject(response) {
 }
 
 function toJson(composed, config) {
-    return res => handleErr(config, res) ? res.orElse(config[res.unwrap()]).unwrap() : res.map(r => r.json().then(composed));
+    return res => handleErr(config, res) ? res.orElse(config[res.unwrap().status]).unwrap() : res.map(r => r.json().then(composed));
 }
 
 /***/ }),
