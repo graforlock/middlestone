@@ -1462,7 +1462,7 @@ function validObject(response) {
 }
 
 function toJson(composed, config) {
-    return res => handleErr(config, res) ? res.orElse(config[res.unwrap().status]).unwrap() : res.map(r => r.json().then(composed));
+    return res => handleErr(config, res) ? res.orElse(config[res.unwrap().status]) : res.map(r => r.json().then(composed));
 }
 
 /***/ }),
