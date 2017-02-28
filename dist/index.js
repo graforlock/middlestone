@@ -237,7 +237,8 @@ class Result {
     }
 
     inspect() {
-        return `${this.constructor.name}(${this.x.status})`;
+        const inspection = this.x && this.x.status ? this.x.status : this.x;
+        return `${this.constructor.name}(${inspection})`;
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Result;
@@ -1448,8 +1449,8 @@ const handleErr = (config, x) => {
 };
 
 function getComposable(middleware) {
-    const composables = middleware.filter(x => typeof x === 'function');
-    return composables.length ? composables : __WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */];
+    const composables = middleware ? middleware.filter(x => typeof x === 'function') : [];
+    return composables.length ? composables : [__WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */]];
 }
 
 function getConfig(middleware) {

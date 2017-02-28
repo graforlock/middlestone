@@ -9,7 +9,7 @@ export function getComposable(middleware) {
     const composables = middleware
             ? middleware.filter(x => typeof x === 'function')
             : [];
-    return composables.length ? composables : identity;
+    return composables.length ? composables : [identity];
 }
 
 export function getConfig(middleware) {
