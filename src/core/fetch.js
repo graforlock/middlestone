@@ -6,7 +6,9 @@ const handleErr = (config, x) => {
 };
 
 export function getComposable(middleware) {
-    const composables = middleware.filter(x => typeof x === 'function');
+    const composables = middleware
+            ? middleware.filter(x => typeof x === 'function')
+            : [];
     return composables.length ? composables : identity;
 }
 

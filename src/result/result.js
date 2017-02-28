@@ -16,6 +16,7 @@ export default class Result {
     }
 
     inspect() {
-        return `${this.constructor.name}(${this.x.status})`;
+        const inspection = this.x && this.x.status ? this.x.status : this.x;
+        return `${this.constructor.name}(${inspection})`;
     }
 }
