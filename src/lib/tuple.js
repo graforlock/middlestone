@@ -7,3 +7,7 @@ export default function Tuple(a, b) {
         return new Tuple(a, b);
     }
 }
+
+Tuple.prototype.switchMap = function(fn) {
+    return fn(this.a, this.b);
+};

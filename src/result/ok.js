@@ -6,6 +6,10 @@ export default class Ok extends Result {
         super(x);
     }
 
+    static of(x) {
+        return new Ok(x);
+    }
+
     map(fn) {
         return new Ok(fn(this.x));
     }

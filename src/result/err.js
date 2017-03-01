@@ -5,6 +5,10 @@ export default class Err extends Result {
         super(x);
     }
 
+    static of(x) {
+        return new Err(x);
+    }
+
     map(_) {
         return new Err(this.x);
     }

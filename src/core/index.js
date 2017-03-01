@@ -1,3 +1,4 @@
 import { toJson, validObject, getConfig, getComposable } from './core';
+import { logger } from './debug';
 
-export { toJson, getConfig, getComposable, validObject };
+export { logger, toJson, getConfig, getComposable, validObject };

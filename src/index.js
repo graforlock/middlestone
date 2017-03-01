@@ -1,4 +1,5 @@
 import {
+    chainPromise,
     isThennable,
     identity,
     immediate,
@@ -65,4 +66,4 @@ const request = middlewareClient(identity).request;
 
 
 // Exports:
-export {middlewareClient, request, Tuple, Result};
+export {chainPromise, middlewareClient, request, Result, Tuple };
