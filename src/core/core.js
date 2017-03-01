@@ -17,6 +17,8 @@ export function getConfig(middleware) {
     return config.length ? config[0] : {};
 }
 
+// Some APIs do return null, and null is of type object.
+// It is still a valid response in some cases.
 export function validObject(response) {
     return response !== null && typeof response === 'object';
 }
