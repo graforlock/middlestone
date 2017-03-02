@@ -1,4 +1,4 @@
-import {asyncCompose, identity, isThennable, httpHandler} from '../lib';
+import {identity} from '../lib';
 import { Ok, Err } from '../result';
 
 const handleErr = (config, x) => {
