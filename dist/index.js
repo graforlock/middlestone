@@ -1481,8 +1481,10 @@ function toJson(composed, config) {
     return res => {
         if (handleErr(config, res)) {
             return new Promise(resolve => {
-                res.orElse(config[res.unwrap().status]).orElse(x => x.then(_x => _x.isOk() ? resolve(__WEBPACK_IMPORTED_MODULE_1__result__["Ok"].of(_x.unwrap())) : resolve(__WEBPACK_IMPORTED_MODULE_1__result__["Err"].of(_x.unwrap()))));
-            });
+                const resolveResult = _x => _x.isOk() ? resolve(__WEBPACK_IMPORTED_MODULE_1__result__["Ok"].of(_x.unwrap())) : resolve(__WEBPACK_IMPORTED_MODULE_1__result__["Err"].of(_x.unwrap()));
+
+                res.orElse(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(resolveResult, config[res.unwrap().status]));
+            }, reject => reject(__WEBPACK_IMPORTED_MODULE_1__result__["Err"].of('Uncaught exception.')));
         } else {
             return res.map(r => r.json().then(composed));
         }
