@@ -66,4 +66,4 @@ const request = middlewareClient(identity).request;
 
 
 // Exports:
-export {chainPromise, middlewareClient, request, Result, Tuple };
+export {chainPromise, httpHandler, middlewareClient, request, Result, Tuple };

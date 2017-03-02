@@ -1,4 +1,5 @@
-import {identity} from '../lib';
+import {asyncCompose, identity, isThennable, httpHandler} from '../lib';
+import { Ok, Err } from '../result';
 
 const handleErr = (config, x) => {
     let {status} = x.unwrap();
@@ -7,8 +8,8 @@ const handleErr = (config, x) => {
 
 export function getComposable(middleware) {
     const composables = middleware
-            ? middleware.filter(x => typeof x === 'function')
-            : [];
+        ? middleware.filter(x => typeof x === 'function')
+        : [];
     return composables.length ? composables : [identity];
 }
 
@@ -24,8 +25,14 @@ export function validObject(response) {
 }
 
 export function toJson(composed, config) {
-    return res =>
-         handleErr(config, res)
-             ? res.orElse(config[res.unwrap().status])
-             : res.map(r => r.json().then(composed))
+    return res => {
+        if (handleErr(config, res)) {
+            return new Promise(resolve => {
+                res.orElse(config[res.unwrap().status])
+                    .orElse(x => x.then(_x => _x.isOk() ? resolve(Ok.of(_x.unwrap())) : resolve(Err.of(_x.unwrap()))));
+            });
+        } else {
+            return res.map(r => r.json().then(composed));
+        }
+    }
 }
