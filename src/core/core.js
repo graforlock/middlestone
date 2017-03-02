@@ -1,5 +1,5 @@
 import {identity} from '../lib';
-import { Ok, Err } from '../result';
+import {Ok, Err} from '../result';
 
 const handleErr = (config, x) => {
     let {status} = x.unwrap();
@@ -29,8 +29,10 @@ export function toJson(composed, config) {
         if (handleErr(config, res)) {
             return new Promise(resolve => {
                 res.orElse(config[res.unwrap().status])
-                    .orElse(x => x.then(_x => _x.isOk() ? resolve(Ok.of(_x.unwrap())) : resolve(Err.of(_x.unwrap()))));
-            });
+                    .orElse(x => x.then(_x => _x.isOk()
+                        ? resolve(Ok.of(_x.unwrap()))
+                        : resolve(Err.of(_x.unwrap()))));
+            }, reject => reject(Err.of('Uncaught exception.')));
         } else {
             return res.map(r => r.json().then(composed));
         }
