@@ -1538,7 +1538,7 @@ function constant(x) {
 function fromResult(result) {
     return new Promise(resolve => {
         result.then(result => {
-            return result.isOk() ? resolve({ Ok: result.unwrap(), Err: null }) : resolve({ Ok: null, Err: result.unwrap() });
+            return result.isOk() ? resolve({ Ok: result, Err: null }) : resolve({ Ok: null, Err: result });
         });
     });
 }
