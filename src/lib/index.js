@@ -1,5 +1,6 @@
 import asyncCompose from './compose';
 import constant from './constant';
+import fromResult from './from-result';
 import chainPromise from './chain-promise';
 import httpHandler from './http-handler';
 import immediate from './immediate';
@@ -10,4 +11,4 @@ import partial from './partial';
 import Tuple from './tuple';
 
 
-export { asyncCompose, chainPromise, identity, isThennable, httpHandler, constant, immediate, pipe, partial, Tuple };
+export { asyncCompose, chainPromise, fromResult, identity, isThennable, httpHandler, constant, immediate, pipe, partial, Tuple };

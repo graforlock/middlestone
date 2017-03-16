@@ -1,10 +1,11 @@
 import {
+    asyncCompose,
+    constant,
     chainPromise,
+    fromResult,
     isThennable,
     identity,
     immediate,
-    constant,
-    asyncCompose,
     partial
 } from './lib';
 
@@ -66,4 +67,4 @@ const request = middlewareClient(identity).request;
 
 
 // Exports:
-export {chainPromise, httpHandler, middlewareClient, request, Result, Tuple };
+export {chainPromise, fromResult, httpHandler, middlewareClient, request, Result, Tuple };
