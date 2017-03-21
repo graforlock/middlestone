@@ -1,6 +1,6 @@
 {
-  "name": "fetch-thru",
-  "version": "0.0.7",
+  "name": "middlestone",
+  "version": "0.8.0",
   "description": "HTTP Middleware",
   "main": "dist/index.js",
   "dependencies": {
@@ -35,16 +35,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/graforlock/thru.git"
+    "url": "git+https://github.com/graforlock/middlestone.git"
   },
   "keywords": [
+    "middlestone",
+    "fetch",
     "middleware",
     "ajax"
   ],
   "author": "Maciej Sitko",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/graforlock/thru/issues"
+    "url": "https://github.com/graforlock/middlestone/issues"
   },
-  "homepage": "https://github.com/graforlock/thru#readme"
+  "homepage": "https://github.com/graforlock/middlestone#readme"
 }
