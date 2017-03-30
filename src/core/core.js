@@ -1,5 +1,6 @@
 import {asyncCompose, identity} from '../lib';
 import {Ok, Err} from '../result';
+import messages from '../constants/messages';
 
 const handleErr = (config, x) => {
     let {status} = x.unwrap();
@@ -33,7 +34,7 @@ export function toJson(composed, config) {
                     : resolve(Err.of(_x.unwrap()));
 
                 res.orElse(asyncCompose(resolveResult, config[res.unwrap().status]));
-            }, reject => reject(Err.of('Uncaught exception.')));
+            }, reject => reject(Err.of(messages.UNCAUGHT_ERR)));
         } else {
             return res.map(r => r.json().then(composed));
         }
