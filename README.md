@@ -17,7 +17,7 @@ const API_GET = {
   404: 'https://jsonplaceholder.typicode.com/bad-route'
 };
 
-const client = middlewareClient(x => x.body); // middleware to get post body
+const client = middlewareClient(x => x.body, { 500: () => this.retry() }); 
 
 const handleOk = (x) => alert(x),
       handleErr = (err) =>  alert(`Error: ${err}`);
@@ -39,7 +39,7 @@ client.request(API_GET['404'])
 
 import { fromResult, middlewareClient } from 'middlestone';
 
-const client = middlewareClient(x => x.body); // retrieve comment body 
+const client = middlewareClient(x => x.body, { 500: () => this.retry() }); 
 
 export default { get: (endpoint, opts = {}) => fromResult(client.request(endpoint, opts)) };
 
