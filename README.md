@@ -23,12 +23,10 @@ const handleOk = (x) => alert(x),
       handleErr = (err) =>  alert(`Error: ${err}`);
 
 client.request(API_GET['200'])
-   .then(Result => Result.andThen(handleOk)
-          	     .orElse(handleErr)); // alert box will show post body.
+   .then(Result => Result.andThen(handleOk).orElse(handleErr)); 
 
 client.request(API_GET['404'])
-   .then(Result => Result.andThen(handleOk)
-          	     .orElse(handleErr)); // alert box will show Error: 404.
+   .then(Result => Result.andThen(handleOk).orElse(handleErr)); 
 
 ```
 
