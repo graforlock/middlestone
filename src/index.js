@@ -17,7 +17,6 @@ import Promise from 'es6-promise';
 import AsyncResult from './async-result';
 import Messages from './constants/messages';
 import * as Result from './result';
-import Tuple from './lib/tuple'
 
 // Core imports:
 import {toJson, getConfig, getComposable} from './core';
@@ -67,4 +66,4 @@ const request = middlewareClient(identity).request;
 
 
 // Exports:
-export {chainPromise, fromResult, httpHandler, middlewareClient, request, Result, Tuple };
+export { chainPromise, fromResult, httpHandler, middlewareClient, request, Result };
