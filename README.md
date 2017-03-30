@@ -1,4 +1,4 @@
 # [middlestone]()
 
-A simple middleware wrapper for `fetch` and other promise-based, HTTP libraries.
+A simple middleware for HTTP requests. Utilises `fetch` under the hood (fully polyfilled).
  
