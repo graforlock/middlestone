@@ -35,6 +35,7 @@ export const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms
 // ...
 
 import actions from '../actions';
+import types from '../constants/actionTypes';
 import someApi from '../services/some-service.js';
 import { delay } from './effects';
 
@@ -53,7 +54,7 @@ export function* fetchSomeService() {
 // ... 
 
 export function *watchFetchSomeService() {
- yield takeEvery(type.FETCH_SOME_SERVICE, fetchSomeService);
+ yield takeEvery(types.FETCH_SOME_SERVICE, fetchSomeService);
 }
 
 // ...
