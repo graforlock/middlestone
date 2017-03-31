@@ -53,7 +53,7 @@ export function* fetchSomeService() {
 // ... 
 
 export function *watchFetchSomeService() {
- takeEvery(type.FETCH_SOME_SERVICE, fetchSomeService);
+ yield takeEvery(type.FETCH_SOME_SERVICE, fetchSomeService);
 }
 
 // ...
