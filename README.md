@@ -13,9 +13,14 @@ Using `redux-saga` :
 
 import { fromResult, middlewareClient } from 'middlestone';
 
+const API_GET = {
+  200: 'https://jsonplaceholder.typicode.com/posts/1',
+  404: 'https://jsonplaceholder.typicode.com/bad-route'
+};
+
 const client = middlewareClient(x => x.body, { 500: () => this.retry() }); 
 
-export default { get: (endpoint, opts = {}) => fromResult(client.request(endpoint, opts)) };
+export default { get: (endpoint = API_GET['200'], opts = {}) => fromResult(client.request(endpoint, opts)) };
 
 ```
 
@@ -29,13 +34,8 @@ export const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms
 import someApi from '../services/some-service.js';
 import { delay } from './effects';
 
-const API_GET = {
-  200: 'https://jsonplaceholder.typicode.com/posts/1',
-  404: 'https://jsonplaceholder.typicode.com/bad-route'
-};
-
 function* fetchSomeService() {
- const {Err, Ok} = yield someApi.get(API_GET['200']);
+ const {Err, Ok} = yield call(someApi.get);
  
  if(Ok) {
    const postBody = yield Ok.unwrap(); // safely unwrap result
