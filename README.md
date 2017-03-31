@@ -17,8 +17,10 @@ const client = middlewareClient(x => x.body, //  get the body of json
  { 404: () => this.retry() }); 
  // ^^ if 404, retry last call.
 
-export default { get: (endpoint = 'https://jsonplaceholder.typicode.com/posts/1', opts = {}) => {
-  return client.requestOf(endpoint, opts);
+export default { 
+  get: (endpoint = 'https://jsonplaceholder.typicode.com/posts/1', opts = {}) => {
+    return client.requestOf(endpoint, opts);
+  }
 }
 ```
 
