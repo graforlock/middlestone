@@ -20,15 +20,19 @@ export default { get: (endpoint, opts = {}) => fromResult(client.request(endpoin
 ```
 
 ```javascript
+//sagas/effects.js
+export const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms);
+```
+
+```javascript
 // sagas/index.js
 import someApi from '../services/some-service.js';
+import { delay } from './effects';
 
 const API_GET = {
   200: 'https://jsonplaceholder.typicode.com/posts/1',
   404: 'https://jsonplaceholder.typicode.com/bad-route'
 };
-
-const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms);
 
 function* fetchSomeService() {
  const {Err, Ok} = yield someApi.get(API_GET['200']);
