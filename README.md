@@ -10,7 +10,6 @@ Using `redux-saga` :
 
 ```javascript
 // services/some-api.js
-
 import { middlewareClient } from 'middlestone';
 
 const client = middlewareClient(x => x.body, //  get the body of json
@@ -33,7 +32,6 @@ export const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms
 // sagas/index.js
 // .. all necessary saga imports here, like call or put.
 // ...
-
 import actions from '../actions';
 import types from '../constants/actionTypes';
 import someApi from '../services/some-service.js';
