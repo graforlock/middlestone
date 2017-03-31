@@ -18,7 +18,7 @@ const API_GET = {
   404: 'https://jsonplaceholder.typicode.com/bad-route'
 };
 
-const client = middlewareClient(x => x.body, { 500: () => this.retry() }); 
+const client = middlewareClient(x => x.body, { 404: () => this.retry() }); 
 
 export default { get: (endpoint = API_GET['200'], opts = {}) => fromResult(client.request(endpoint, opts)) };
 
@@ -36,7 +36,7 @@ import someApi from '../services/some-service.js';
 import { delay } from './effects';
 
 function* fetchSomeService() {
- const {Err, Ok} = yield call(someApi.get);
+ const { Err, Ok } = yield call(someApi.get);
  
  if(Ok) {
    const postBody = yield Ok.unwrap(); // safely unwrap result
