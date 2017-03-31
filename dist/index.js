@@ -91,8 +91,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__is_thennable__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__partial__ = __webpack_require__(20);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__compose__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_3__chain_promise__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_2__from_result__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_3__chain_promise__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_2__from_result__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6__identity__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_7__is_thennable__["a"]; });
 /* unused harmony reexport httpHandler */
@@ -116,11 +116,10 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__err__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ok__ = __webpack_require__(22);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Err", function() { return __WEBPACK_IMPORTED_MODULE_0__err__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Ok", function() { return __WEBPACK_IMPORTED_MODULE_1__ok__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_0__err__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__ok__["a"]; });
 
 
 
@@ -174,7 +173,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["a"] = (response => {
-    return response.status >= 400 ? new __WEBPACK_IMPORTED_MODULE_0__result__["Err"](response) : new __WEBPACK_IMPORTED_MODULE_0__result__["Ok"](response);
+    return response.status >= 400 ? new __WEBPACK_IMPORTED_MODULE_0__result__["b" /* Err */](response) : new __WEBPACK_IMPORTED_MODULE_0__result__["a" /* Ok */](response);
 });
 
 /***/ }),
@@ -1445,10 +1444,10 @@ function toJson(composed, config) {
     return res => {
         if (handleErr(config, res)) {
             return new Promise(resolve => {
-                const resolveResult = _x => _x.isOk() ? resolve(__WEBPACK_IMPORTED_MODULE_1__result__["Ok"].of(_x.unwrap())) : resolve(__WEBPACK_IMPORTED_MODULE_1__result__["Err"].of(_x.unwrap()));
+                const resolveResult = _x => _x.isOk() ? resolve(__WEBPACK_IMPORTED_MODULE_1__result__["a" /* Ok */].of(_x.unwrap())) : resolve(__WEBPACK_IMPORTED_MODULE_1__result__["b" /* Err */].of(_x.unwrap()));
 
                 res.orElse(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(resolveResult, config[res.unwrap().status]));
-            }, reject => reject(__WEBPACK_IMPORTED_MODULE_1__result__["Err"].of(__WEBPACK_IMPORTED_MODULE_2__constants_messages__["a" /* default */].UNCAUGHT_ERR)));
+            }, reject => reject(__WEBPACK_IMPORTED_MODULE_1__result__["b" /* Err */].of(__WEBPACK_IMPORTED_MODULE_2__constants_messages__["a" /* default */].UNCAUGHT_ERR)));
         } else {
             return res.map(r => r.json().then(composed));
         }
@@ -1486,12 +1485,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__result__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_http_handler__ = __webpack_require__(5);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "chainPromise", function() { return __WEBPACK_IMPORTED_MODULE_0__lib__["g"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "fromResult", function() { return __WEBPACK_IMPORTED_MODULE_0__lib__["h"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "httpHandler", function() { return __WEBPACK_IMPORTED_MODULE_7__lib_http_handler__["a"]; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "Result", function() { return __WEBPACK_IMPORTED_MODULE_5__result__; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "chainPromise", function() { return __WEBPACK_IMPORTED_MODULE_0__lib__["h"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "fromResult", function() { return __WEBPACK_IMPORTED_MODULE_0__lib__["g"]; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "middlewareClient", function() { return middlewareClient; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "request", function() { return request; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestOf", function() { return requestOf; });
 var _this = this;
 
 
@@ -1516,7 +1514,7 @@ const _request = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["a" /*
     switch (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["b" /* isThennable */])(asyncResult)) {
         case __WEBPACK_IMPORTED_MODULE_3__async_result__["a" /* default */].NOT_THENNABLE:
             const syncResult = asyncResult;
-            return new __WEBPACK_IMPORTED_MODULE_2_es6_promise___default.a(resolve => resolve(new __WEBPACK_IMPORTED_MODULE_5__result__["Ok"](__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["c" /* immediate */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["d" /* constant */])(syncResult), middleware))), reject => reject(new __WEBPACK_IMPORTED_MODULE_5__result__["Err"](__WEBPACK_IMPORTED_MODULE_4__constants_messages__["a" /* default */].SYNC_ERR)));
+            return new __WEBPACK_IMPORTED_MODULE_2_es6_promise___default.a(resolve => resolve(new __WEBPACK_IMPORTED_MODULE_5__result__["a" /* Ok */](__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["c" /* immediate */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["d" /* constant */])(syncResult), middleware))), reject => reject(new __WEBPACK_IMPORTED_MODULE_5__result__["b" /* Err */](__WEBPACK_IMPORTED_MODULE_4__constants_messages__["a" /* default */].SYNC_ERR)));
         case __WEBPACK_IMPORTED_MODULE_3__async_result__["a" /* default */].THENNABLE:
             return asyncResult.then(middleware);
     }
@@ -1538,6 +1536,7 @@ const middlewareClient = (...middleware) => {
             const handleResponse = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__core__["c" /* toJson */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(...composables), config);
             return _request(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(handleResponse, __WEBPACK_IMPORTED_MODULE_7__lib_http_handler__["a" /* default */]), __WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch___default.a, ...args);
         },
+        requestOf: (...args) => requestOf(...args),
         retry: () => _this.request(..._lastCall)
     };
 };
@@ -1547,6 +1546,8 @@ const middlewareClient = (...middleware) => {
 // Not very useful for more sophisticated retrying
 // functionality.
 const request = middlewareClient(__WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */]).request;
+
+const requestOf = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(__WEBPACK_IMPORTED_MODULE_0__lib__["g" /* fromResult */], request);
 
 // Exports:
 
@@ -1597,11 +1598,7 @@ function constant(x) {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = fromResult;
 function fromResult(result) {
-    return new Promise(resolve => {
-        result.then(result => {
-            return result.isOk() ? resolve({ Ok: result, Err: null }) : resolve({ Ok: null, Err: result });
-        });
-    });
+    return result.isOk() ? { Ok: result, Err: null } : { Ok: null, Err: result };
 }
 
 /***/ }),
@@ -1630,9 +1627,9 @@ function fromThen(x, fn) {
 
 function immediate(lambda, middleware = __WEBPACK_IMPORTED_MODULE_0__identity__["a" /* default */]) {
     if (typeof lambda() !== 'undefined' && lambda() !== null) {
-        return new __WEBPACK_IMPORTED_MODULE_1__result__["Ok"](middleware(lambda()));
+        return new __WEBPACK_IMPORTED_MODULE_1__result__["a" /* Ok */](middleware(lambda()));
     } else {
-        return new __WEBPACK_IMPORTED_MODULE_1__result__["Err"](__WEBPACK_IMPORTED_MODULE_2__constants_messages__["a" /* default */].IMMEDIATE_ERR);
+        return new __WEBPACK_IMPORTED_MODULE_1__result__["b" /* Err */](__WEBPACK_IMPORTED_MODULE_2__constants_messages__["a" /* default */].IMMEDIATE_ERR);
     }
 }
 

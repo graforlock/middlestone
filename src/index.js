@@ -54,6 +54,7 @@ const middlewareClient = (...middleware) => {
             const handleResponse = toJson(asyncCompose(...composables), config);
             return _request(asyncCompose(handleResponse, httpHandler), fetch, ...args);
         },
+        requestOf: (...args) => requestOf(...args),
         retry: () => this.request(..._lastCall)
     }
 };
@@ -64,6 +65,8 @@ const middlewareClient = (...middleware) => {
 // functionality.
 const request = middlewareClient(identity).request;
 
+// RequestOf: Returns Err and Ok object from Result
+const requestOf = asyncCompose(fromResult, request);
 
 // Exports:
-export { chainPromise, fromResult, httpHandler, middlewareClient, request, Result };
+export { chainPromise, fromResult, middlewareClient, request, requestOf };
