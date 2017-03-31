@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,17 +81,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constant__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__from_result__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__chain_promise__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__chain_promise__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__http_handler__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__immediate__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__identity__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__is_thennable__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pipe__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__partial__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__tuple__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__identity__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__is_thennable__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__partial__ = __webpack_require__(20);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_0__compose__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_3__chain_promise__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_2__from_result__["a"]; });
@@ -100,11 +98,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* unused harmony reexport httpHandler */
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1__constant__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_5__immediate__["a"]; });
-/* unused harmony reexport pipe */
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_9__partial__["a"]; });
-/* unused harmony reexport Tuple */
-
-
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_8__partial__["a"]; });
 
 
 
@@ -123,8 +117,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__err__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ok__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__err__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ok__ = __webpack_require__(22);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Err", function() { return __WEBPACK_IMPORTED_MODULE_0__err__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Ok", function() { return __WEBPACK_IMPORTED_MODULE_1__ok__["a"]; });
 
@@ -137,29 +131,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = {
-    NOT_THENNABLE: 0,
-    THENNABLE: 1
-};
+/* harmony default export */ __webpack_exports__["a"] = ({
+    SYNC_ERR: 'Error while parsing immediate Sync value.',
+    RETRY_ERR: 'Retrying request has failed.',
+    IMMEDIATE_ERR: 'Failed to retrieve any immediate value.',
+    UNCAUGHT_ERR: 'Uncaught exception.'
+});
 
 /***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = {
-    SYNC_ERR: 'Error while parsing immediate Sync value.',
-    RETRY_ERR: 'Retrying request has failed.',
-    IMMEDIATE_ERR: 'Failed to retrieve any immediate value.'
-};
+/* harmony default export */ __webpack_exports__["a"] = ({
+    NOT_THENNABLE: 0,
+    THENNABLE: 1
+});
 
 /***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__debug__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__debug__ = __webpack_require__(12);
 /* unused harmony reexport logger */
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__core__["b"]; });
@@ -178,61 +173,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__result__ = __webpack_require__(1);
 
 
-/* harmony default export */ __webpack_exports__["a"] = response => {
+/* harmony default export */ __webpack_exports__["a"] = (response => {
     return response.status >= 400 ? new __WEBPACK_IMPORTED_MODULE_0__result__["Err"](response) : new __WEBPACK_IMPORTED_MODULE_0__result__["Ok"](response);
-};
+});
 
 /***/ }),
 /* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = Tuple;
-function Tuple(a, b) {
-    if (this instanceof Tuple) {
-        this.a = a;
-        this.b = b;
-    } else {
-        return new Tuple(a, b);
-    }
-}
-
-Tuple.prototype.switchMap = function (fn) {
-    return fn(this.a, this.b);
-};
+/* harmony default export */ __webpack_exports__["a"] = (x => x);
 
 /***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__from_then__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__is_thennable__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(4);
-/* harmony export (immutable) */ __webpack_exports__["a"] = asyncCompose;
-
-
-
-
-function asyncCompose(...fns) {
-    return v => fns.reverse().reduce((x, y) => {
-        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__core__["d" /* validObject */])(x) && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__is_thennable__["a" /* default */])(x) ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__from_then__["a" /* default */])(x, y) : y(x);
-    }, v);
-}
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = x => x;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__async_result__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__async_result__ = __webpack_require__(3);
 /* harmony export (immutable) */ __webpack_exports__["a"] = isThennable;
 
 
@@ -241,7 +198,7 @@ function isThennable(resultingAsync) {
 }
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -271,7 +228,7 @@ class Result {
 
 
 /***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {var require;/*!
@@ -279,7 +236,7 @@ class Result {
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
  *            See https://raw.githubusercontent.com/stefanpenner/es6-promise/master/LICENSE
- * @version   4.0.5
+ * @version   4.1.0
  */
 
 (function (global, factory) {
@@ -410,7 +367,7 @@ function flush() {
 function attemptVertx() {
   try {
     var r = require;
-    var vertx = __webpack_require__(27);
+    var vertx = __webpack_require__(26);
     vertxNext = vertx.runOnLoop || vertx.runOnContext;
     return useVertxTimer();
   } catch (e) {
@@ -587,6 +544,7 @@ function handleMaybeThenable(promise, maybeThenable, then$$) {
   } else {
     if (then$$ === GET_THEN_ERROR) {
       _reject(promise, GET_THEN_ERROR.error);
+      GET_THEN_ERROR.error = null;
     } else if (then$$ === undefined) {
       fulfill(promise, maybeThenable);
     } else if (isFunction(then$$)) {
@@ -707,7 +665,7 @@ function invokeCallback(settled, promise, callback, detail) {
     if (value === TRY_CATCH_ERROR) {
       failed = true;
       error = value.error;
-      value = null;
+      value.error = null;
     } else {
       succeeded = true;
     }
@@ -1431,31 +1389,34 @@ return Promise;
 
 })));
 //# sourceMappingURL=es6-promise.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(25)))
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23), __webpack_require__(24)))
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // the whatwg-fetch polyfill installs the fetch() function
 // on the global object (window or self)
 //
 // Return that as the export for use in Webpack, Browserify etc.
-__webpack_require__(26);
+__webpack_require__(25);
 module.exports = self.fetch.bind(self);
 
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__result__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants_messages__ = __webpack_require__(2);
 /* harmony export (immutable) */ __webpack_exports__["c"] = getComposable;
 /* harmony export (immutable) */ __webpack_exports__["b"] = getConfig;
 /* harmony export (immutable) */ __webpack_exports__["d"] = validObject;
 /* harmony export (immutable) */ __webpack_exports__["a"] = toJson;
+
 
 
 
@@ -1487,7 +1448,7 @@ function toJson(composed, config) {
                 const resolveResult = _x => _x.isOk() ? resolve(__WEBPACK_IMPORTED_MODULE_1__result__["Ok"].of(_x.unwrap())) : resolve(__WEBPACK_IMPORTED_MODULE_1__result__["Err"].of(_x.unwrap()));
 
                 res.orElse(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(resolveResult, config[res.unwrap().status]));
-            }, reject => reject(__WEBPACK_IMPORTED_MODULE_1__result__["Err"].of('Uncaught exception.')));
+            }, reject => reject(__WEBPACK_IMPORTED_MODULE_1__result__["Err"].of(__WEBPACK_IMPORTED_MODULE_2__constants_messages__["a" /* default */].UNCAUGHT_ERR)));
         } else {
             return res.map(r => r.json().then(composed));
         }
@@ -1495,7 +1456,7 @@ function toJson(composed, config) {
 }
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1510,13 +1471,113 @@ const logger = (text, fn = __WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */
 
 
 /***/ }),
-/* 15 */
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_es6_promise__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_es6_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_es6_promise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__async_result__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_messages__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__result__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_http_handler__ = __webpack_require__(5);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "chainPromise", function() { return __WEBPACK_IMPORTED_MODULE_0__lib__["g"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "fromResult", function() { return __WEBPACK_IMPORTED_MODULE_0__lib__["h"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "httpHandler", function() { return __WEBPACK_IMPORTED_MODULE_7__lib_http_handler__["a"]; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "Result", function() { return __WEBPACK_IMPORTED_MODULE_5__result__; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "middlewareClient", function() { return middlewareClient; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "request", function() { return request; });
+var _this = this;
+
+
+
+// Main library dependencies:
+
+
+
+// Constants and others:
+
+
+
+
+// Core imports:
+
+
+
+// Request: a private core functionality
+// of the library. This is never directly exposed.
+const _request = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["a" /* partial */])((middleware, asyncRequest, ...args) => {
+    const asyncResult = asyncRequest(...args);
+    switch (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["b" /* isThennable */])(asyncResult)) {
+        case __WEBPACK_IMPORTED_MODULE_3__async_result__["a" /* default */].NOT_THENNABLE:
+            const syncResult = asyncResult;
+            return new __WEBPACK_IMPORTED_MODULE_2_es6_promise___default.a(resolve => resolve(new __WEBPACK_IMPORTED_MODULE_5__result__["Ok"](__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["c" /* immediate */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["d" /* constant */])(syncResult), middleware))), reject => reject(new __WEBPACK_IMPORTED_MODULE_5__result__["Err"](__WEBPACK_IMPORTED_MODULE_4__constants_messages__["a" /* default */].SYNC_ERR)));
+        case __WEBPACK_IMPORTED_MODULE_3__async_result__["a" /* default */].THENNABLE:
+            return asyncResult.then(middleware);
+    }
+});
+
+// Middleware Client: Gives ability to use request
+// piped through middleware chain. NOTE: middleware
+// is applied using functional composition, which is
+// right-to-left (so-called reversed pipe).
+const middlewareClient = (...middleware) => {
+    let _lastCall = null;
+    return {
+        request: (...args) => {
+            _lastCall = args;
+
+            const config = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__core__["a" /* getConfig */])(middleware),
+                  composables = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__core__["b" /* getComposable */])(middleware);
+
+            const handleResponse = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__core__["c" /* toJson */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(...composables), config);
+            return _request(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(handleResponse, __WEBPACK_IMPORTED_MODULE_7__lib_http_handler__["a" /* default */]), __WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch___default.a, ...args);
+        },
+        retry: () => _this.request(..._lastCall)
+    };
+};
+
+// Request: Exposure of the vanilla request
+// functionality. Applies identity as middleware.
+// Not very useful for more sophisticated retrying
+// functionality.
+const request = middlewareClient(__WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */]).request;
+
+// Exports:
+
+
+/***/ }),
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = chainPromise;
 function chainPromise(x) {
     return x.then(x => x.unwrap());
+}
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__from_then__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__is_thennable__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core__ = __webpack_require__(4);
+/* harmony export (immutable) */ __webpack_exports__["a"] = asyncCompose;
+
+
+
+
+function asyncCompose(...fns) {
+    return v => fns.reverse().reduce((x, y) => {
+        return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__core__["d" /* validObject */])(x) && __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__is_thennable__["a" /* default */])(x) ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__from_then__["a" /* default */])(x, y) : y(x);
+    }, v);
 }
 
 /***/ }),
@@ -1558,9 +1619,9 @@ function fromThen(x, fn) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__identity__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__identity__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__result__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants_messages__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants_messages__ = __webpack_require__(2);
 /* harmony export (immutable) */ __webpack_exports__["a"] = immediate;
 
 
@@ -1602,21 +1663,7 @@ function partial(fn) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(7);
-/* unused harmony export default */
-
-
-function pipe(...fns) {
-    const reversed = fns.reverse();
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__compose__["a" /* default */])(reversed);
-}
-
-/***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__result__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__result__ = __webpack_require__(8);
 
 
 class Err extends __WEBPACK_IMPORTED_MODULE_0__result__["a" /* default */] {
@@ -1652,11 +1699,11 @@ class Err extends __WEBPACK_IMPORTED_MODULE_0__result__["a" /* default */] {
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__result__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__result__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib__ = __webpack_require__(0);
 
 
@@ -1694,7 +1741,7 @@ class Ok extends __WEBPACK_IMPORTED_MODULE_0__result__["a" /* default */] {
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1880,7 +1927,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1907,7 +1954,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports) {
 
 (function(self) {
@@ -1996,7 +2043,10 @@ module.exports = g;
       headers.forEach(function(value, name) {
         this.append(name, value)
       }, this)
-
+    } else if (Array.isArray(headers)) {
+      headers.forEach(function(header) {
+        this.append(header[0], header[1])
+      }, this)
     } else if (headers) {
       Object.getOwnPropertyNames(headers).forEach(function(name) {
         this.append(name, headers[name])
@@ -2371,94 +2421,10 @@ module.exports = g;
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
-
-/***/ }),
-/* 28 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_es6_promise__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_es6_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_es6_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__async_result__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_messages__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__result__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_tuple__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_http_handler__ = __webpack_require__(5);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "chainPromise", function() { return __WEBPACK_IMPORTED_MODULE_0__lib__["g"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "fromResult", function() { return __WEBPACK_IMPORTED_MODULE_0__lib__["h"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "httpHandler", function() { return __WEBPACK_IMPORTED_MODULE_8__lib_http_handler__["a"]; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "Result", function() { return __WEBPACK_IMPORTED_MODULE_5__result__; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Tuple", function() { return __WEBPACK_IMPORTED_MODULE_6__lib_tuple__["a"]; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "middlewareClient", function() { return middlewareClient; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "request", function() { return request; });
-var _this = this;
-
-
-
-// Main library dependencies:
-
-
-
-// Constants and others:
-
-
-
-
-
-// Core imports:
-
-
-
-// Request: a private core functionality
-// of the library. This is never directly exposed.
-const _request = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["a" /* partial */])((middleware, asyncRequest, ...args) => {
-    const asyncResult = asyncRequest(...args);
-    switch (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["b" /* isThennable */])(asyncResult)) {
-        case __WEBPACK_IMPORTED_MODULE_3__async_result__["a" /* default */].NOT_THENNABLE:
-            const syncResult = asyncResult;
-            return new __WEBPACK_IMPORTED_MODULE_2_es6_promise___default.a(resolve => resolve(new __WEBPACK_IMPORTED_MODULE_5__result__["Ok"](__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["c" /* immediate */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["d" /* constant */])(syncResult), middleware))), reject => reject(new __WEBPACK_IMPORTED_MODULE_5__result__["Err"](__WEBPACK_IMPORTED_MODULE_4__constants_messages__["a" /* default */].SYNC_ERR)));
-        case __WEBPACK_IMPORTED_MODULE_3__async_result__["a" /* default */].THENNABLE:
-            return asyncResult.then(middleware);
-    }
-});
-
-// Middleware Client: Gives ability to use request
-// piped through middleware chain. NOTE: middleware
-// is applied using functional composition, which is
-// right-to-left (so-called reversed pipe).
-const middlewareClient = (...middleware) => {
-    let _lastCall = null;
-    return {
-        request: (...args) => {
-            _lastCall = args;
-
-            const config = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__core__["a" /* getConfig */])(middleware),
-                  composables = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__core__["b" /* getComposable */])(middleware);
-
-            const handleResponse = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7__core__["c" /* toJson */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(...composables), config);
-            return _request(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__lib__["e" /* asyncCompose */])(handleResponse, __WEBPACK_IMPORTED_MODULE_8__lib_http_handler__["a" /* default */]), __WEBPACK_IMPORTED_MODULE_1_isomorphic_fetch___default.a, ...args);
-        },
-        retry: () => _this.request(..._lastCall)
-    };
-};
-
-// Request: Exposure of the vanilla request
-// functionality. Applies identity as middleware.
-// Not very useful for more sophisticated retrying
-// functionality.
-const request = middlewareClient(__WEBPACK_IMPORTED_MODULE_0__lib__["f" /* identity */]).request;
-
-// Exports:
-
 
 /***/ })
 /******/ ]);
