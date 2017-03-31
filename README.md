@@ -31,10 +31,11 @@ export const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms
 
 ```javascript
 // sagas/index.js
-import actions from '../actions';
-import someApi from '../services/some-service.js';
 // .. all necessary saga imports here, like call or put.
 // ...
+
+import actions from '../actions';
+import someApi from '../services/some-service.js';
 import { delay } from './effects';
 
 export function* fetchSomeService() {
