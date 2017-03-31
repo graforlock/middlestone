@@ -43,7 +43,7 @@ function* fetchSomeService() {
    yield put(postBody);
  } else {
     yield delay(500);
-    yield put(actions.getSomeApi);
+    yield put(actions.getSomeApi());
  }
 }
 ```
