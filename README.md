@@ -13,14 +13,9 @@ Using `redux-saga` :
 
 import { fromResult, middlewareClient } from 'middlestone';
 
-const API_GET = {
-  200: 'https://jsonplaceholder.typicode.com/posts/1',
-  404: 'https://jsonplaceholder.typicode.com/bad-route'
-};
+const client = middlewareClient(x => x.body, { 404: () => this.retry() }); // get the body of json, if 404, retry last call.
 
-const client = middlewareClient(x => x.body, { 404: () => this.retry() }); 
-
-export default { get: (endpoint = API_GET['200'], opts = {}) => fromResult(client.request(endpoint, opts)) };
+export default { get: (endpoint = 'https://jsonplaceholder.typicode.com/posts/1', opts = {}) => fromResult(client.request(endpoint, opts)) };
 
 ```
 
