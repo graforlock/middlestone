@@ -14,8 +14,8 @@ Using `redux-saga` :
 import { middlewareClient } from 'middlestone';
 
 const client = middlewareClient(x => x.body, //  get the body of json
- { 404: () => this.retry() }); 
- // ^^ if 404, retry last call.
+ { 500: () => this.retry() }); 
+ // ^^ if 500, retry last call.
 
 export default { 
   get: (endpoint = 'https://jsonplaceholder.typicode.com/posts/1', opts = {}) => {
