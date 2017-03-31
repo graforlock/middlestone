@@ -6,31 +6,7 @@ _ _ _
 
 *Example use of Result API*:
 
-**1.** Standard way, using `.map` and `.orElse` :
-
-```javascript
-import { middlewareClient } from 'middlestone';
- 
-
-const API_GET = {
-  200: 'https://jsonplaceholder.typicode.com/posts/1',
-  404: 'https://jsonplaceholder.typicode.com/bad-route'
-};
-
-const client = middlewareClient(x => x.body, { 500: () => this.retry() }); 
-
-const handleOk = (x) => alert(x),
-      handleErr = (err) =>  alert(`Error: ${err}`);
-
-client.request(API_GET['200'])
-   .then(Result => Result.andThen(handleOk).orElse(handleErr)); 
-
-client.request(API_GET['404'])
-   .then(Result => Result.andThen(handleOk).orElse(handleErr)); 
-
-```
-
-**2.** Using `redux-saga`, basic way :
+Using `redux-saga` :
 
 ```javascript
 // services/some-api.js
@@ -52,13 +28,17 @@ const API_GET = {
   404: 'https://jsonplaceholder.typicode.com/bad-route'
 };
 
-function* watchFetchSomeService() {
+const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms);
+
+function* fetchSomeService() {
  const {Err, Ok} = yield someApi.get(API_GET['200']);
  
  if(Ok) {
-   yield put(receiveData(Ok.unwrap()));
+   const postBody = yield Ok.unwrap(); // safely unwrap result
+   yield put(postBody);
  } else {
-    // ... handle error or retry the call
+    yield delay(500);
+    fetchSomeService();
  }
 }
 ```
