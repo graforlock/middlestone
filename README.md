@@ -31,11 +31,13 @@ export const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms
 
 ```javascript
 // sagas/index.js
+// .. all necessary saga imports here, like call or put.
+// ...
 import actions from '../actions';
 import someApi from '../services/some-service.js';
 import { delay } from './effects';
 
-function* fetchSomeService() {
+export function* fetchSomeService() {
  const { Err, Ok } = yield call(someApi.get);
  
  if(Ok) {
@@ -43,7 +45,21 @@ function* fetchSomeService() {
    yield put(postBody);
  } else {
     yield delay(500);
-    yield put(actions.getSomeApi());
+    yield put(actions.getSomeApi()); // it is going to retry the same step
  }
+}
+
+// ... 
+
+export function *watchFetchSomeService() {
+ takeEvery(type.FETCH_SOME_SERVICE, fetchSomeService);
+}
+
+// ...
+
+export default function* root() {
+ yield [
+  fork(watchFetchSomeService)
+ ]
 }
 ```
